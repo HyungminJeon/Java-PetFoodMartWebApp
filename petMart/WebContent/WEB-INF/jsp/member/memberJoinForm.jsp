@@ -51,6 +51,7 @@
 			frm.memberPwd.focus();
 			return false;
 		}
+		alert("정상적으로 회원가입 되었습니다")
 		frm.submit();
 	}
 </script>
@@ -91,7 +92,7 @@
 			<div>
 				<button type="button" onclick="formCheck()">회원가입</button>
 				<button type="reset">취소</button>
-				<button type="button" onclick="location.href='mainPage.do'">홈</button>
+				<button type="button" onclick="location.href='homePage.do'">홈</button>
 			</div>
 		</form>
 	</div>

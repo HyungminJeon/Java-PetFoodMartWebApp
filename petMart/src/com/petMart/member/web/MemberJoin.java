@@ -22,7 +22,7 @@ public class MemberJoin implements DbCommand {
 		String name = request.getParameter("memberName");
 		String addr = request.getParameter("memberAddr");
 		
-		System.out.println(id);
+		
 		MemberVO vo = new MemberVO();
 		vo.setId(id);
 		vo.setPwd(pwd);
@@ -40,7 +40,7 @@ public class MemberJoin implements DbCommand {
 		int cnt = service1.getCountCart(id);
 		session.setAttribute("cartCnt", cnt);
 		
-		return "member/memberJoinSuccess.tiles";
+		return "home/homePage.tiles";
 	}
 
 }

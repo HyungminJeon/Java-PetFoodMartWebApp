@@ -100,7 +100,21 @@ public class MemberServiceImpl extends DAO implements MemberService{
 
 	@Override
 	public int deleteMember(MemberVO vo) {
-		return 0;
+		String sql = "delete from member where id=? and passwd=?";
+		int r =0;
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, vo.getId());
+			psmt.setString(2, vo.getPwd());
+			r = psmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		
+		return r;
 	}
 	
 	private void close() {

@@ -17,6 +17,9 @@
                         <c:if test="${id ne null}">
                         	<li class="nav-item"><a class="nav-link" href="memberLoginOut.do">Logout</a></li>
                         </c:if>
+                        <c:if test="${id ne null}">
+                        	<li class="nav-item"><a class="nav-link" href="memberCancelForm.do">Cancel membership</a></li>
+                        </c:if>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
