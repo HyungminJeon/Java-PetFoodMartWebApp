@@ -3,7 +3,7 @@
 
 <style>
 	#footer{
-		background-color:#DABB24;
+		background-color:#A77416;
 	}
 </style>
     

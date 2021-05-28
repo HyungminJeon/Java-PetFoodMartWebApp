@@ -14,7 +14,7 @@
 		width: 100%;
 		height: 100%;
 		content: "";
-		background: url("image/bg_image.jpg");
+		background: url("upload/bg_image.jpg");
 		position: absolute;
   		top: 0;
   		left: 0;

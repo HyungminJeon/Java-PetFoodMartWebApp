@@ -30,6 +30,7 @@ import com.petMart.notice.web.NoticeListPaging;
 import com.petMart.notice.web.NoticeUpdate;
 import com.petMart.product.web.AddCart;
 import com.petMart.product.web.CartList;
+import com.petMart.product.web.ProductList;
 
 
 public class FrontController extends HttpServlet{
@@ -55,7 +56,7 @@ public class FrontController extends HttpServlet{
 
 		
 		/// 장바구니
-		// map.put("/productList.do", new ProductList());
+		map.put("/productList.do", new ProductList());
 		map.put("/addCart.do", new AddCart());
 		map.put("/cartList.do", new CartList());
 		
