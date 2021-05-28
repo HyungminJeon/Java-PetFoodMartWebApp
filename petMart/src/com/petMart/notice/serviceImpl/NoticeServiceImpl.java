@@ -66,7 +66,7 @@ public class NoticeServiceImpl extends DAO implements NoticeService{
 				NoticeVO vo = new NoticeVO();
 				vo.setId(rs.getInt("id"));
 				vo.setTitle(rs.getString("title"));
-				vo.setContent(rs.getString("content"));
+				vo.setContent(rs.getString("contents"));
 				vo.setRegDate(rs.getDate("reg_date"));
 				vo.setHit(rs.getInt("hit"));
 				list.add(vo);
