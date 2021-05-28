@@ -39,8 +39,7 @@ public class FrontController extends HttpServlet{
 		// ex: map.put("/~.do", new ~~());
 		
 		// 시작 시 메인 페이지 호출, 메뉴 바 클릭 시 메인 페이지 호출
-//		map.put("/homePage.do", new HomePage());
-//		
+		map.put("/homePage.do", new HomePage());
 		
 		// 로그인, 회원 가입
 		map.put("/memberJoinForm.do",new MemberJoinForm());
@@ -49,10 +48,7 @@ public class FrontController extends HttpServlet{
 		map.put("/memberLogin.do", new MemberLogin());
 		map.put("/memberLoginOut.do", new MemberLogOut());
 		map.put("/memberLoginFail.do", new MemberLoginFail());
-		
-		
-		
-		map.put("/homePage.do", new HomePage());
+
 		
 		/// 장바구니
 		map.put("/productList.do", new CartList());
