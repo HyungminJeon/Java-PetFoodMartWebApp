@@ -7,6 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>홈페이지</h1>
+	<div class="container col-md-6">
+		<h1> col-md-6col-md-6col-md-6col-md-6col-md-6col-md-6col-md-6col-md-6col-md-6col-md-6col-md-6col-md-6col-md-6col-md-6 </h1>
+	</div>
 </body>
 </html>
