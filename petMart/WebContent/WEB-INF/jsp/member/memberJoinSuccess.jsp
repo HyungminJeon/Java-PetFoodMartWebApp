@@ -8,6 +8,10 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<script>
+alert("정상적으로 회원가입 되었습니다")
+</script>
+
 <body>
 	
 	
@@ -79,8 +83,6 @@
 		</div>
 	</div>
 </section>
-		
-		
 		
 		
 		
