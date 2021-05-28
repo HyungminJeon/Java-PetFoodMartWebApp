@@ -18,7 +18,6 @@ import com.petMart.member.web.MemberCancel;
 import com.petMart.member.web.MemberCancelForm;
 import com.petMart.member.web.MemberJoin;
 import com.petMart.member.web.MemberJoinForm;
-import com.petMart.member.web.MemberJoinSuccess;
 import com.petMart.member.web.MemberLogOut;
 import com.petMart.member.web.MemberLogin;
 import com.petMart.member.web.MemberLoginFail;
@@ -47,7 +46,6 @@ public class FrontController extends HttpServlet{
 		// 로그인, 회원 가입
 		map.put("/memberJoinForm.do",new MemberJoinForm());
 		map.put("/memberJoin.do", new MemberJoin());
-		map.put("/memberJoinSuccess.do", new MemberJoinSuccess());
 		map.put("/memberLoginForm.do", new MemberLoginForm());
 		map.put("/memberLogin.do", new MemberLogin());
 		map.put("/memberLoginOut.do", new MemberLogOut());
