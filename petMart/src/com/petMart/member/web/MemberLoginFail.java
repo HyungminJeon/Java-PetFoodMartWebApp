@@ -1,14 +1,15 @@
-package com.petMart.common;
+package com.petMart.member.web;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class MainPage implements DbCommand {
+import com.petMart.common.DbCommand;
+
+public class MemberLoginFail implements DbCommand {
 
 	@Override
 	public String execute(HttpServletRequest req, HttpServletResponse res) {
-
-		return "main/main.tiles";
+		return "member/memberLoginFailForm.tiles";
 	}
 
 }

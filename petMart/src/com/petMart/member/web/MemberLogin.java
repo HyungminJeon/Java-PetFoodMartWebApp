@@ -37,9 +37,9 @@ public class MemberLogin implements DbCommand {
 			int cnt = service1.getCountCart(rvo.getId());
 			session.setAttribute("cartCnt", cnt);
 			request.setAttribute("vo", rvo);
-			path = "member/memberLoginSuccess.tiles";
+			path = "home/homePage.tiles";
 		} else { // 회원이 없는 경우
-			path = "member/memberLoginFail.tiles";
+			path = "/memberLoginFail.do";
 		}
 		
 		return path;

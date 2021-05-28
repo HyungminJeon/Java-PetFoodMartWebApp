@@ -12,7 +12,7 @@ import com.petMart.product.serviceImpl.ProductServiceImpl;
 import com.petMart.product.vo.ProductVO;
 
 
-public class ProductList implements DbCommand {
+public class CartList implements DbCommand {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
@@ -26,7 +26,7 @@ public class ProductList implements DbCommand {
 		session.setAttribute("cartCnt", cnt);
 		request.setAttribute("list", list);
 		
-		return "product/productList.tiles";
+		return "product/cartList.tiles";
 	}
 
 }

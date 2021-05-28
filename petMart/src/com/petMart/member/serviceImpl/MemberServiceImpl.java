@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.petMart.bulletin.vo.BulletinVO;
 import com.petMart.common.DAO;
 import com.petMart.member.service.MemberService;
 import com.petMart.member.vo.MemberVO;
@@ -101,7 +102,6 @@ public class MemberServiceImpl extends DAO implements MemberService{
 	public int deleteMember(MemberVO vo) {
 		return 0;
 	}
-	
 	
 	private void close() {
 		if(rs != null)

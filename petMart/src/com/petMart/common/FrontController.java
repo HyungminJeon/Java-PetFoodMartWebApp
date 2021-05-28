@@ -9,6 +9,27 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.petMart.bulletin.web.BulletinForm;
+import com.petMart.bulletin.web.BulletinInsert;
+import com.petMart.bulletin.web.BulletinList;
+import com.petMart.bulletin.web.BulletinSelect;
+import com.petMart.bulletin.web.BulletinUpdate;
+import com.petMart.member.web.MemberJoin;
+import com.petMart.member.web.MemberJoinForm;
+import com.petMart.member.web.MemberLogOut;
+import com.petMart.member.web.MemberLogin;
+import com.petMart.member.web.MemberLoginFail;
+import com.petMart.member.web.MemberLoginForm;
+import com.petMart.notice.web.Notice;
+import com.petMart.notice.web.NoticeInsert;
+import com.petMart.notice.web.NoticeInsertForm;
+import com.petMart.notice.web.NoticeList;
+import com.petMart.notice.web.NoticeListPaging;
+import com.petMart.notice.web.NoticeUpdate;
+import com.petMart.product.web.AddCart;
+import com.petMart.product.web.CartList;
+
+
 public class FrontController extends HttpServlet{
 	
 	private HashMap<String, DbCommand> map = new HashMap<>();
@@ -18,20 +39,40 @@ public class FrontController extends HttpServlet{
 		// ex: map.put("/~.do", new ~~());
 		
 		// 시작 시 메인 페이지 호출, 메뉴 바 클릭 시 메인 페이지 호출
-		map.put("/main.do", new MainPage());
+//		map.put("/homePage.do", new HomePage());
+//		
 		
 		// 로그인, 회원 가입
-		map.put("/loginForm.do", new MainPage());
-		map.put("/login.do", new MainPage());
+		map.put("/memberJoinForm.do",new MemberJoinForm());
+		map.put("/memberJoin.do", new MemberJoin());
+		map.put("/memberLoginForm.do", new MemberLoginForm());
+		map.put("/memberLogin.do", new MemberLogin());
+		map.put("/memberLoginOut.do", new MemberLogOut());
+		map.put("/memberLoginFail.do", new MemberLoginFail());
 		
-		map.put("/joinForm.do", new MainPage());
-		map.put("/join.do", new MainPage());
+		
+		
+		map.put("/homePage.do", new HomePage());
 		
 		// 장바구니
+		map.put("/productList.do", new CartList());
+		map.put("/addCart.do", new AddCart());
+		map.put("/cartList.do", new CartList());
 		
 		// 자유 게시판
+		map.put("/bulletinList.do", new BulletinList());
+		map.put("/bulletinForm.do", new BulletinForm());
+		map.put("/bulletinInsert.do", new BulletinInsert());
+		map.put("/bulletinSelect.do", new BulletinSelect());
+		map.put("/bulletinUpdate.do", new BulletinUpdate());
 		
 		// 공지사항
+		map.put("/noticeList.do", new NoticeList());
+		map.put("/noticeListPaging.do", new NoticeListPaging());
+		map.put("/notice.do", new Notice());
+		map.put("/noticeUpdate.do", new NoticeUpdate());
+		map.put("/noticeInsert.do", new NoticeInsert());
+		map.put("/noticeForm.do", new NoticeInsertForm());
 	}
 
 	@Override

@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.petMart.bulletin.vo.BulletinVO;
 import com.petMart.common.DAO;
 import com.petMart.notice.service.NoticeService;
 import com.petMart.notice.vo.NoticeVO;
@@ -164,6 +165,30 @@ public class NoticeServiceImpl extends DAO implements NoticeService{
 		}
 		
 	}
+	
+	public List<NoticeVO> homePageNoticeList(){
+		String sql = "select * from (select * from notice order by reg_date desc) where rownum <= 7";
+		List<NoticeVO> list = new ArrayList<>();
+		try {
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			while(rs.next()) {
+				NoticeVO vo = new NoticeVO();
+				vo.setId(rs.getInt("id"));
+				vo.setTitle(rs.getString("title"));
+				vo.setContent(rs.getString("contents"));
+				vo.setRegDate(rs.getDate("reg_date"));
+				vo.setHit(rs.getInt("hit"));
+				list.add(vo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return list;
+	}
+	
 	
 	private void close() {
 		if(rs != null)

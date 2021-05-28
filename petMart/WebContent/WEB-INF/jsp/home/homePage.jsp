@@ -9,6 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+	
 	<div class="container col-md-12">
 		<h3>HOT</h3>
 		<section class="py-5">
@@ -89,8 +90,8 @@
 		
 		
 		
-		<div class="container col-md-6">
-			<div class="container col-md-6" style="text-align:center">
+		<div class="container col-md-10">
+			<div class="container col-md-10" style="text-align:center">
 				<h3>NOTICE</h3>
 				<table class="table">
 					<tr>
@@ -98,12 +99,14 @@
 						<td>작성일자</td>
 					</tr>
 					<c:forEach items="${noticeList }" var="vo">
-						<td>vo.title</td>
-						<td>vo.reg_date</td>
+						<tr>
+							<td>${vo.title }</td>
+							<td>${vo.regDate }</td>
+						</tr>
 					</c:forEach>
 				</table>
 			</div><hr>
-			<div class="container col-md-6" style="text-align:center">
+			<div class="container col-md-10" style="text-align:center">
 				<h3>Free Board</h3>
 				<table class="table">
 					<tr>
@@ -111,8 +114,8 @@
 						<td>작성일자</td>
 					</tr>
 					<c:forEach items="${bulletinList }" var="vo">
-						<td>vo.title</td>
-						<td>vo.reg_date</td>
+						<td>${vo.title }</td>
+						<td>${vo.regDate }</td>
 					</c:forEach>
 				</table>
 			</div>
