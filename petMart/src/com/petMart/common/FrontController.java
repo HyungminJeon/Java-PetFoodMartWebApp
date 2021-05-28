@@ -17,10 +17,15 @@ public class FrontController extends HttpServlet{
 	public void init() throws ServletException {
 		// ex: map.put("/~.do", new ~~());
 		
-		
-		// 초기 실행
+		// 시작 시 메인 페이지 호출, 메뉴 바 클릭 시 메인 페이지 호출
+		map.put("/main.do", new MainPage());
 		
 		// 로그인, 회원 가입
+		map.put("/loginForm.do", new MainPage());
+		map.put("/login.do", new MainPage());
+		
+		map.put("/joinForm.do", new MainPage());
+		map.put("/join.do", new MainPage());
 		
 		// 장바구니
 		
