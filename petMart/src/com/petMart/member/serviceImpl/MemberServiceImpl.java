@@ -40,7 +40,7 @@ public class MemberServiceImpl extends DAO implements MemberService{
 				rvo.setPwd(rs.getString("passwd"));
 				rvo.setName(rs.getString("name"));
 				rvo.setAddr(rs.getString("address"));
-			}
+			} 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

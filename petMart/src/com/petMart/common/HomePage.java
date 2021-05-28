@@ -17,7 +17,7 @@ public class HomePage implements DbCommand {
 		List<NoticeVO> list = service.homePageNoticeList();
 		
 		req.setAttribute("noticeList", list);
-		
+		 
 		return "home/homePage.tiles";
 	}
 
