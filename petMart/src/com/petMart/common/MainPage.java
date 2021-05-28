@@ -8,7 +8,7 @@ public class MainPage implements DbCommand {
 	@Override
 	public String execute(HttpServletRequest req, HttpServletResponse res) {
 
-		return "home/home.tiles";
+		return "main/main.tiles";
 	}
 
 }

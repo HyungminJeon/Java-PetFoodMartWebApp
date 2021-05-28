@@ -4,6 +4,7 @@
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <!--  "/WEB-INF/jsp/layout/template.jsp"  = 사용자가 접근하지 못하도록 web-inf 하위폴더에 저장  > -->
 <tiles-definitions>
+
 	<definition name="home" template="/WEB-INF/jsp/layout/template.jsp">
 		<put-attribute name="title" value="Welcome to Home!!" />
 		<put-attribute name="menu" value="/WEB-INF/jsp/layout/menu.jsp" />
