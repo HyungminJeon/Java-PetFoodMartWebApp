@@ -22,6 +22,7 @@ public class ProductList implements DbCommand {
 
 		ProductServiceImpl service1 = new ProductServiceImpl();
 		HttpSession session = request.getSession();
+		
 		int cnt = service1.getCountCart((String)session.getAttribute("id"));
 		session.setAttribute("cartCnt", cnt);
 		request.setAttribute("list", list);

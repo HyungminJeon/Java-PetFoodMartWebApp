@@ -14,13 +14,21 @@ public class AddCart implements DbCommand {
 		// 그 정보를 찾아와서 세션에 띄워야함
 		
 		String id = request.getParameter("id");
+		String guestId = request.getParameter("guestId");
 		String itemCode = request.getParameter("itemCode");
 		int qty = 1;
 		
-		ProductServiceImpl service = new ProductServiceImpl();
-		service.addCart(id, itemCode, qty);
+		if(guestId != null) {
+			ProductServiceImpl service = new ProductServiceImpl();
+			service.addGuestCart(guestId, itemCode, qty);
+		}
 		
-		return "/productList.do";
+		if(id != null) {
+			ProductServiceImpl service = new ProductServiceImpl();
+			service.addCart(id, itemCode, qty);
+		}
+		return "/productListPaging.do";
+		
 	}
 
 }

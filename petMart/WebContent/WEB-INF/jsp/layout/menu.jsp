@@ -33,16 +33,19 @@
 	                    <form action="searchList.do" method="post">
 	                		<input class="form-control" name="keyword" type="text" size="25" placeholder="I wanna buy... press Enter" required="required">
 	                    </form>
-                    <c:if test="${id ne null}">
 	                   <form class="d-flex" action="cartList.do?">
 	                   		<input type="hidden" name="uid" value="${id }">
 	                       <button class="btn btn-outline-dark" type="submit">
 	                           <i class="bi-cart-fill me-1"></i>
-	                           ${id }'s Cart
+	                           <c:if test="${id ne null }">
+	                           		${id }'s Cart
+	                           </c:if>
+	                           <c:if test="${id eq null }">
+	                           		Guest Cart
+	                           </c:if>
 	                           <span class="badge bg-dark text-white ms-1 rounded-pill">${cartCnt }</span>
 	                       </button>
 	                   </form>
-                    </c:if>
                 </div>
             </div>
         </nav>

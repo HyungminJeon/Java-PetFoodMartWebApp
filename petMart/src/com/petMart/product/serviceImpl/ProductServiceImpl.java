@@ -158,8 +158,7 @@ public class ProductServiceImpl extends DAO implements ProductService {
 	}
 	
 	
-	// cart 정보 추가
-	
+	// 회원 cart 정보 추가
 	public void addCart(String id, String item, int qty) {
 		sql = "insert into cart values(?,?,?)";
 		try {
@@ -168,7 +167,24 @@ public class ProductServiceImpl extends DAO implements ProductService {
 			psmt.setString(2, item);
 			psmt.setInt(3, qty);
 			int r = psmt.executeUpdate();
-			System.out.println(r+"건 장바구니에 입력");
+			System.out.println(r+"건 회원 장바구니에 입력");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+	}
+	
+	//Guest cart 정보 추가
+	public void addGuestCart(String id, String item, int qty) {
+		sql = "insert into guestcart values(?,?,?)";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, id);
+			psmt.setString(2, item);
+			psmt.setInt(3, qty);
+			int r = psmt.executeUpdate();
+			System.out.println(r+"건 비회원 장바구니에 입력");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
