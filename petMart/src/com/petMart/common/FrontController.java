@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.petMart.bulletin.web.BulletinForm;
 import com.petMart.bulletin.web.BulletinInsert;
 import com.petMart.bulletin.web.BulletinList;
+import com.petMart.bulletin.web.BulletinListPaging;
 import com.petMart.bulletin.web.BulletinSelect;
 import com.petMart.bulletin.web.BulletinUpdate;
 import com.petMart.member.web.MemberCancel;
@@ -76,6 +77,7 @@ public class FrontController extends HttpServlet{
 		map.put("/noticeUpdate.do", new NoticeUpdate());
 		map.put("/noticeInsert.do", new NoticeInsert());
 		map.put("/noticeForm.do", new NoticeInsertForm());
+		map.put("/bulletinListPaging.do", new BulletinListPaging());
 	}
 
 	@Override

@@ -14,7 +14,7 @@ public class MemberLogOut implements DbCommand {
 		HttpSession session = request.getSession();
 		session.invalidate();
 		
-		return "home/homePage.tiles";
+		return "homePage.do";
 	}
 
 }
