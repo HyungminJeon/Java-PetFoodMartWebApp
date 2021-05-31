@@ -50,11 +50,13 @@
 							</div>
 						</div>
 						<!-- Product actions-->
+						<c:if test="${not empty id }">
 						<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
 							<div class="text-center">
 								<a class="btn btn-outline-dark mt-auto" id="addCnt" onclick="addCnt('${vo.itemCode }')">Add to cart</a>
 							</div>
 						</div>
+						</c:if>
 					</div>
 				</div>
 			</c:forEach>
