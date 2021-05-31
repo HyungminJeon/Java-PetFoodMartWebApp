@@ -20,14 +20,16 @@ public class CartList implements DbCommand {
 		HttpSession session = request.getSession();
 		String id = (String)session.getAttribute("id");
 		
-		if(id != null) {
-			Cookie[] cookies = request.getCookies();
-			// for(Cookie cookie:)
-			// id = cookie.getValue();
-			
-		} else {
-			
-		}
+//		if(id != null) {
+//			Cookie[] cookies = request.getCookies();
+//			 for(Cookie cookie:cookies) {
+//				 if(cookie.getValue())
+//			 }
+//			 
+//			
+//		} else {
+//			
+//		}
 
 		
 		
