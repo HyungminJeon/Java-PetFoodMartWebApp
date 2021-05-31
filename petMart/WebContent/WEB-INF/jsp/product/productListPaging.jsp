@@ -119,8 +119,8 @@
 			// 쿠키 없으면 생성
 			if($.cookie('guestBasketId') == null){
 				const ranNum = Math.random();
-				// 이틀 뒤에 파기. 지정하지 않으면 session cookie가 된다
 				$.cookie('guestBasketId', ranNum, {expires: 2});
+				// 이틀 뒤에 파기. 지정하지 않으면 session cookie가 된다
 				var guestId = $.cookie('guestBasketId');
 				console.log('게스트 쿠키를 생성합니다...');
 				$.ajax({
