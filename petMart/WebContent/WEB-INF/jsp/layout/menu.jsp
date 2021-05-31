@@ -31,8 +31,8 @@
                             
                         </li>
                     </ul>
-	                    <form action="" method="post">
-	                		<input class="form-control" name="itemName" type="text" size="25" placeholder="I wanna buy... press Enter" required="required">
+	                    <form action="searchList.do" method="post">
+	                		<input class="form-control" name="keyword" type="text" size="25" placeholder="I wanna buy... press Enter" required="required">
 	                    </form>
                     <c:if test="${id ne null}">
 	                   <form class="d-flex" action="cartList.do?">

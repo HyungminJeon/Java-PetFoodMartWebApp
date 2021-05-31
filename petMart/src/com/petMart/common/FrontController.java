@@ -53,12 +53,14 @@ public class FrontController extends HttpServlet{
 		map.put("/memberLoginFail.do", new MemberLoginFail());
 		map.put("/memberCancelForm.do", new MemberCancelForm());
 		map.put("/memberCancel.do", new MemberCancel());
-
 		
-		/// 장바구니
+		// 장바구니
 		map.put("/productList.do", new ProductList());
 		map.put("/addCart.do", new AddCart());
 		map.put("/cartList.do", new CartList());
+		
+		// 메뉴 바 검색
+		map.put("/searchList.do", new SearchList());
 		
 		// 자유 게시판
 		map.put("/bulletinList.do", new BulletinList());

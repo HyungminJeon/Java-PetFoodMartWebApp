@@ -65,6 +65,34 @@ public class ProductServiceImpl extends DAO implements ProductService {
 	public int deleteProduct(ProductVO vo) {
 		return 0;
 	}
+	
+	public List<ProductVO> searchProductList(String keyword){
+		String sql = "select * from product where item_name like ?";
+		List<ProductVO> list = new ArrayList<>();
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, keyword);
+			rs = psmt.executeQuery();
+			while(rs.next()) {
+				ProductVO vo = new ProductVO();
+				vo.setItemImage(rs.getString("item_image"));
+				vo.setItemDesc(rs.getString("item_desc"));
+				vo.setLikeIt(rs.getInt("like_it"));
+				vo.setPrice(rs.getInt("price"));
+				vo.setSale(rs.getString("sale"));
+				vo.setSalePrice(rs.getInt("sale_price"));
+				vo.setItemCode(rs.getString("item_code"));
+				vo.setItemName(rs.getString("item_name"));
+				list.add(vo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return list;
+	}
+	
 
 	// 홈페이지 좋아요 순 top5 상품
 	public List<ProductVO> homePageProductList(){
