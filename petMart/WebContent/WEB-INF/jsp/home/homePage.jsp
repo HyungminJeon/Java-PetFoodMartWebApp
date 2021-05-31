@@ -113,8 +113,10 @@
 						<td>작성일자</td>
 					</tr>
 					<c:forEach items="${homepageBulletinList }" var="vo">
-						<td>${vo.title }</td>
-						<td>${vo.regDate }</td>
+						<tr>
+							<td>${vo.title }</td>
+							<td>${vo.regDate }</td>
+						</tr>
 					</c:forEach>
 				</table>
 			</div>
