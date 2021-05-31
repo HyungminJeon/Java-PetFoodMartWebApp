@@ -5,6 +5,19 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<script>
+		function noticeFormSubmit(id){
+			noticeFrm.id.value = id;
+			noticeFrm.submit();
+		}
+		
+		function bulletinFormSubmit(id){
+			bulletinFrm.id.value = id;
+			bulletinFrm.submit();
+		}
+	
+	</script>
+
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -64,7 +77,10 @@
 	</div>
 </section>
 
-
+		<!-- 공지사항 클릭 시 페이지 이동 -->
+		<form id="noticeFrm" action="notice.do" method="post">
+			<input type="hidden" id="id" name="id">
+		</form>
 		<!-- 공지사항 최신 순 상위 7건 -->
 		<div class="container col-md-10">
 			<div class="container col-md-10" style="text-align:center">
@@ -75,7 +91,7 @@
 						<td>작성일자</td>
 					</tr>
 					<c:forEach items="${homepageNoticeList }" var="vo">
-						<tr>
+						<tr onclick="noticeFormSubmit(${vo.id })">
 							<td>${vo.title }</td>
 							<td>${vo.regDate }</td>
 						</tr>
@@ -83,7 +99,10 @@
 				</table>
 			</div><hr>
 			
-			
+			<!-- 자유게시판 클릭 시 페이지 이동 -->
+			<form id="bulletinFrm" action="bulletinSelect.do" method="post">
+				<input type="hidden" id="id" name="id">
+			</form>
 			<!-- 자유게시판 최신 순 상위 7건 -->
 			<div class="container col-md-10" style="text-align:center">
 				<h3>Free Board</h3>
@@ -93,7 +112,7 @@
 						<td>작성일자</td>
 					</tr>
 					<c:forEach items="${homepageBulletinList }" var="vo">
-						<tr>
+						<tr onclick="bulletinFormSubmit(${vo.id })">
 							<td>${vo.title }</td>
 							<td>${vo.regDate }</td>
 						</tr>
