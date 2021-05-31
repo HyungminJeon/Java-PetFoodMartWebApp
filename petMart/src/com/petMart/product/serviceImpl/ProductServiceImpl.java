@@ -17,6 +17,35 @@ public class ProductServiceImpl extends DAO implements ProductService {
 	PreparedStatement psmt;
 	ResultSet rs;
 	String sql;
+
+	
+	public List<ProductVO> productSelectListPaging() {
+		sql = "select * from product order by 1";
+		List<ProductVO> list = new ArrayList<>();
+		try {
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			while(rs.next()) {
+				ProductVO vo = new ProductVO();
+				vo.setItemCode(rs.getString("item_code"));
+				vo.setItemDesc(rs.getString("item_desc"));
+				vo.setItemImage(rs.getString("item_image"));
+				vo.setItemName(rs.getString("item_name"));
+				vo.setLikeIt(rs.getInt("like_it"));
+				vo.setPrice(rs.getInt("price"));
+				vo.setSale(rs.getString("sale"));
+				vo.setSalePrice(rs.getInt("sale_price"));
+				list.add(vo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return list;
+	}
+	
+	
 	
 	
 	@Override
