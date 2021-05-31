@@ -91,7 +91,7 @@
 			</table>
 		</div>
 		<div class="m-3">
-			<button type="button" class="btn btn-secondary" onclick="location.href='main.do'">홈으로</button>
+			<button type="button" class="btn btn-secondary" onclick="location.href='homePage.do'">홈으로</button>
 			<c:if test="${!empty id }">
 				<button type="button" class="btn btn-info" onclick="location.href='bulletinForm.do'">등록</button>
 			</c:if>

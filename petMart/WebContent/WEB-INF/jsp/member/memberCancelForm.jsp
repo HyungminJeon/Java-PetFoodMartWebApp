@@ -4,6 +4,8 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
 function formCheck() {
+	var result = confirm("정말 탈퇴하시겠습니까?");
+	
 	if (frm.memberId.value == "") {
 		alert("아이디를 입력하세요.");
 		frm.memberId.focus();
@@ -13,8 +15,17 @@ function formCheck() {
 		alert("비밀번호를 입력하세요.");
 		frm.memberPwd.focus();
 		return false;
+	} 
+	
+	if (frm.memberPwd.value != "" && frm.memberId.value != "") {
+	
+		if(result) {
+			frm.submit();
+			alert("정상적으로 탈퇴되었습니다.");
+	} else {
+		document.write("<h5> 취소되었습니다. </h5>");
 	}
-	frm.submit();
+	}
 }
 </script>
 

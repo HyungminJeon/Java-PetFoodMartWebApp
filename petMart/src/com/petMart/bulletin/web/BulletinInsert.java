@@ -30,7 +30,7 @@ public class BulletinInsert implements DbCommand{
 		if(cnt > 0) {
 			path = "/bulletinListPaging.do";
 		} else {
-			path = "/main.do";
+			path = "/homePage.do";
 		}
 		
 		return path;

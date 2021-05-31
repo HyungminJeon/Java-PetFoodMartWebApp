@@ -57,7 +57,7 @@
 				<div>
 					<button type="button" onclick="formCheck()">등록</button>
 					<button type="reset">취소</button>
-					<button type="button" onclick="location.href='main.do'">홈으로</button>
+					<button type="button" onclick="location.href='homePage.do'">홈으로</button>
 				</div>
 			</form>
 		</div>
