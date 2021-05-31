@@ -82,6 +82,7 @@ public class ProductServiceImpl extends DAO implements ProductService {
 				vo.setSale(rs.getString("sale"));
 				vo.setSalePrice(rs.getInt("sale_price"));
 				vo.setItemCode(rs.getString("item_code"));
+				vo.setItemName(rs.getString("item_name"));
 				list.add(vo);
 			}
 		} catch (SQLException e) {
