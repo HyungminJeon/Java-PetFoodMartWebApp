@@ -3,6 +3,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
 <script>
 		function goPage(page){
 			location.href = "productListPaging.do?page=" + page;
@@ -95,18 +98,57 @@
 <script>
 	function addCnt(itemCode){
 		// e.preventDefault();
+		
+		// 로그인한 경우
 		if(${!empty id }){
 			$.ajax({
 				url:'addCart.do',
 				data: {
 					id: '${id }',
 					itemCode: itemCode
-					},
+				},
 				success:function(result){
 					console.log(result);
 					location.href = 'productListPaging.do';
 				}
 			});
+		}
+		
+		// 게스트인 경우
+		else {
+			// 쿠키 없으면 생성
+			if($.cookie('guestBasketId') == null){
+				const ranNum = Math.random();
+				$.cookie('guestBasketId', ranNum, {expires: 2});
+				// 이틀 뒤에 파기. 지정하지 않으면 session cookie가 된다
+				var guestId = $.cookie('guestBasketId');
+				console.log('게스트 쿠키를 생성합니다...');
+				$.ajax({
+					url:'addCart.do',
+					data: {
+						guestId: guestId,
+						itemCode: itemCode
+					},
+					success:function(result){
+						console.log(result);
+						location.href = 'productListPaging.do';
+					}
+				});
+			} else { // 쿠키 있으면
+				console.log('게스트 쿠키 존재...');
+				var guestId = $.cookie('guestBasketId');
+				$.ajax({
+					url:'addCart.do',
+					data: {
+						guestId: guestId,
+						itemCode: itemCode
+					},
+					success:function(result){
+						console.log(result);
+						location.href = 'productListPaging.do';
+					}
+				});
+			}
 		}
 	}	
 	

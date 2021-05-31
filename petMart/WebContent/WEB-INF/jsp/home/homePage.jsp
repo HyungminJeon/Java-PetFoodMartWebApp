@@ -14,16 +14,7 @@
 		function bulletinFormSubmit(id){
 			bulletinFrm.id.value = id;
 			bulletinFrm.submit();
-		}
-	
-	</script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
-	<script>
-		$(function(){
-			$.cookie("visits", 10);
-			console.log("visits");
-		});
+		}	
 	</script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -138,7 +129,7 @@
 					itemCode:itemCode
 				},
 				success:function(result){
-					location.href = 'homePage.do'
+					location.href = 'homePage.do';
 				},
 				error:function(err){
 					console.log(err);
