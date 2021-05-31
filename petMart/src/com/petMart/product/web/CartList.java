@@ -7,25 +7,22 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.petMart.common.DbCommand;
-import com.petMart.product.service.ProductService;
 import com.petMart.product.serviceImpl.ProductServiceImpl;
 import com.petMart.product.vo.CartVO;
-import com.petMart.product.vo.ProductVO;
-
 
 public class CartList implements DbCommand {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
 		
+		// 세션, id 획득
 		HttpSession session = request.getSession();
+		String id = (String)session.getAttribute("id");
 		
+		// 장바구니 목록
 		ProductServiceImpl service = new ProductServiceImpl();
-		List<CartVO> list = service.cartList((String)session.getAttribute("id"));
-
-		ProductServiceImpl service1 = new ProductServiceImpl();
-		int cnt = service1.getCountCart((String)session.getAttribute("id"));
-		session.setAttribute("cartCnt", cnt);
+		List<CartVO> list = service.cartList(id);
+		
 		request.setAttribute("cartList", list);
 		
 		return "product/cartList.tiles";
