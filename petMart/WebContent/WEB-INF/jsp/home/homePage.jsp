@@ -17,7 +17,7 @@
 		}
 	
 	</script>
-
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -121,5 +121,23 @@
 			</div>
 		</div>
 	</div>
+	
+	<script>
+		function addCnt(itemCode){
+			$.ajax({
+				url:'addCart.do',
+				data:{
+					id:'${id }',
+					itemCode:itemCode
+				},
+				success:function(result){
+					location.href = 'homePage.do'
+				},
+				error:function(err){
+					console.log(err);
+				}
+			});
+		};	
+	</script>
 </body>
 </html>
