@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.petMart.common.DAO;
+import com.petMart.notice.vo.NoticeVO;
 import com.petMart.product.service.ProductService;
 import com.petMart.product.vo.CartVO;
 import com.petMart.product.vo.ProductVO;
@@ -65,6 +66,33 @@ public class ProductServiceImpl extends DAO implements ProductService {
 		return 0;
 	}
 
+	// 홈페이지 좋아요 순 top5 상품
+	public List<ProductVO> homePageProductList(){
+		String sql = "select * from (select * from product order by like_it desc) where rownum <= 5";
+		List<ProductVO> list = new ArrayList<>();
+		try {
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			while(rs.next()) {
+				ProductVO vo = new ProductVO();
+				vo.setItemImage(rs.getString("item_image"));
+				vo.setItemDesc(rs.getString("item_desc"));
+				vo.setLikeIt(rs.getInt("like_it"));
+				vo.setPrice(rs.getInt("price"));
+				vo.setSale(rs.getString("sale"));
+				vo.setSalePrice(rs.getInt("sale_price"));
+				vo.setItemCode(rs.getString("item_code"));
+				list.add(vo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return list;
+	}
+	
+	
 	// cart 정보 추가
 	
 	public void addCart(String id, String item, int qty) {

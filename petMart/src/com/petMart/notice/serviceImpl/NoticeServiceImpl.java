@@ -167,7 +167,7 @@ public class NoticeServiceImpl extends DAO implements NoticeService{
 	}
 	
 	public List<NoticeVO> homePageNoticeList(){
-		String sql = "select * from (select * from notice order by reg_date desc) where rownum <= 7";
+		String sql = "select * from (select * from notice order by id desc) where rownum <= 7";
 		List<NoticeVO> list = new ArrayList<>();
 		try {
 			psmt = conn.prepareStatement(sql);

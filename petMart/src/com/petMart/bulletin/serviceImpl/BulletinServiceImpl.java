@@ -187,7 +187,7 @@ public class BulletinServiceImpl extends DAO implements BulletinService{
 	}
 
 	public List<BulletinVO> homePageBulletinList(){
-		String sql = "select * from (select * from bulletin order by reg_date desc) where rownum <= 7";
+		String sql = "select * from (select * from bulletin order by id desc) where rownum <= 7";
 		List<BulletinVO> list = new ArrayList<>();
 		try {
 			psmt = conn.prepareStatement(sql);
