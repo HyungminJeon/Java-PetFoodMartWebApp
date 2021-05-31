@@ -21,9 +21,9 @@ public class BulletinDelete implements DbCommand {
 		
 		BulletinService service = new BulletinServiceImpl();
 		int r = service.deleteBulletin(vo);
-		System.out.println(r+"건 입력됨");
+		System.out.println(r+"건 삭제됨");
 
-		return "bulletinListPaging.do";
+		return "bulletinList.do";
 	}
 
 }

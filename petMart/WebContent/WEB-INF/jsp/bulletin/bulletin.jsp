@@ -18,7 +18,7 @@
 			});
 		});
 		
-		function bulletinDelete(){
+		function bulletinDelete() {
 			deleteFrm.submit();
 		}
 		

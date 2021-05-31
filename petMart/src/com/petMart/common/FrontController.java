@@ -69,6 +69,7 @@ public class FrontController extends HttpServlet{
 		map.put("/bulletinInsert.do", new BulletinInsert());
 		map.put("/bulletinSelect.do", new BulletinSelect());
 		map.put("/bulletinUpdate.do", new BulletinUpdate());
+		map.put("/bulletinListPaging.do", new BulletinListPaging());
 		
 		// 공지사항
 		map.put("/noticeList.do", new NoticeList());
@@ -77,7 +78,6 @@ public class FrontController extends HttpServlet{
 		map.put("/noticeUpdate.do", new NoticeUpdate());
 		map.put("/noticeInsert.do", new NoticeInsert());
 		map.put("/noticeForm.do", new NoticeInsertForm());
-		map.put("/bulletinListPaging.do", new BulletinListPaging());
 	}
 
 	@Override

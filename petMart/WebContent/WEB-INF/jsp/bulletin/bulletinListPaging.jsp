@@ -6,6 +6,19 @@
 <head>
 	<meta charset="UTF-8">
 	<title>bulletinListPaging</title>
+	
+	<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+	
+	<script>
+		function formSubmit(bulletinId){
+			frm.id.value = bulletinId;
+			frm.submit();
+		}
+		function goPage(page){
+			location.href = "bulletinListPaging.do?page=" + page;
+		}
+	</script>
+	
 	<style>
 		th, td{
 			text-align:center;
@@ -39,16 +52,8 @@
 		}
 		
 	</style>
-	<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-	<script>
-		function formSubmit(bulletinId){
-			frm.id.value = bulletinId;
-			frm.submit();
-		}
-		function goPage(page){
-			location.href = "bulletinListPaging.do?page=" + page;
-		}
-	</script>
+	
+	
 
 </head>
 <body>

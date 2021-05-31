@@ -8,9 +8,8 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="homePage.do">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="noticeList.do">Notice</a></li>
-                        <li class="nav-item"><a class="nav-link" href="noticeListPaging.do">NoticePaging</a></li>
-                        <li class="nav-item"><a class="nav-link" href="bulletinList.do">FreeBoard</a></li>
+                        <li class="nav-item"><a class="nav-link" href="noticeListPaging.do">Notice</a></li>
+                        <li class="nav-item"><a class="nav-link" href="bulletinListPaging.do">FreeBoard</a></li>
                         <c:if test="${id eq null}">
                         	<li class="nav-item"><a class="nav-link" href="memberLoginForm.do">Login</a></li>
                         	<li class="nav-item"><a class="nav-link" href="memberJoinForm.do">Sign In</a></li>
