@@ -3,7 +3,8 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js">
 </script>
-
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"> //주소입력 스크립트
+</script>
 
 
 <script>
@@ -30,12 +31,8 @@ function findAddr(){
     }).open();
 }
 </script>
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js">
-</script>
-
 <script>
 
-	
 	$(function() {
 		$('#idCheck').click(function() {
 			if($('#memberId').val()=="") {
@@ -78,8 +75,14 @@ function findAddr(){
 			return false;
 		}
 		
-		if (frm.memberPwd.value == "") {
+		if (frm.memberPwd1.value == "") {
 			alert("비밀번호를 입력하세요.");
+			frm.memberPwd.focus();
+			return false;
+		}
+		
+		if (frm.memberPwd1.value != frm.memberPwd2.value ) {
+			alert("비밀번호를 재확인하세요.");
 			frm.memberPwd.focus();
 			return false;
 		}
@@ -93,11 +96,11 @@ function findAddr(){
 	<div>
 		<h1>회원가입</h1>
 	</div>
-
+<br>
 	<div>
 		<form id="frm" action="memberJoin.do" method="post">
 			<div>
-				<table border="1">
+				<table style="border:'1'; border-collapse:collapse;">
 					<tr>
 						<th width="150">아이디</th>
 						<td width="300">
@@ -108,7 +111,12 @@ function findAddr(){
 					<tr>
 						<th width="150">비밀번호</th>
 						<td width="300"><input type="password" id="memberPwd"
-							name="memberPwd"></td>
+							name="memberPwd1"></td>
+					</tr>
+					<tr>
+						<th width="150">비밀번호 재확인</th>
+						<td width="300"><input type="password" id="memberPwd"
+							name="memberPwd2"></td>
 					</tr>
 					<tr>
 						<th width="150">이름</th>
@@ -132,11 +140,12 @@ function findAddr(){
 					</tr>
 				</table>
 			</div>
+			<br>
+ 			<br>
 			<div>
   
  
-				<button type="button" onclick="formCheck()">회원가입</button>
-				<button type="reset">취소</button>
+				<button type="button" onclick="formCheck()">가입하기</button>
 				<button type="button" onclick="location.href='homePage.do'">홈</button>
 			</div>
 		</form>
