@@ -50,7 +50,7 @@
 			<h3>공지 사항</h3>
 			<table class="table" border="1">
 				<tr>
-					<th width="20">순번</th>
+					<th width="20">글번호</th>
 					<th width="200">제목</th>
 					<th width="50">작성일자</th>
 					<th width="20">조회수</th>

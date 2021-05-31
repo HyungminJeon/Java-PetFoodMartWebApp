@@ -98,6 +98,9 @@ public class NoticeServiceImpl extends DAO implements NoticeService{
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close();
+			
 		}
 		return nvo;
 	}
@@ -162,7 +165,7 @@ public class NoticeServiceImpl extends DAO implements NoticeService{
 			psmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
+		} 
 		
 	}
 	

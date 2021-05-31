@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.petMart.bulletin.web.BulletinDelete;
 import com.petMart.bulletin.web.BulletinForm;
 import com.petMart.bulletin.web.BulletinInsert;
 import com.petMart.bulletin.web.BulletinList;
@@ -24,6 +25,7 @@ import com.petMart.member.web.MemberLogin;
 import com.petMart.member.web.MemberLoginFail;
 import com.petMart.member.web.MemberLoginForm;
 import com.petMart.notice.web.Notice;
+import com.petMart.notice.web.NoticeDelete;
 import com.petMart.notice.web.NoticeInsert;
 import com.petMart.notice.web.NoticeInsertForm;
 import com.petMart.notice.web.NoticeList;
@@ -32,6 +34,7 @@ import com.petMart.notice.web.NoticeUpdate;
 import com.petMart.product.web.AddCart;
 import com.petMart.product.web.CartList;
 import com.petMart.product.web.ProductList;
+import com.petMart.product.web.ProductListPaging;
 
 
 public class FrontController extends HttpServlet{
@@ -70,6 +73,7 @@ public class FrontController extends HttpServlet{
 		map.put("/bulletinInsert.do", new BulletinInsert());
 		map.put("/bulletinSelect.do", new BulletinSelect());
 		map.put("/bulletinUpdate.do", new BulletinUpdate());
+		map.put("/bulletinDelete.do", new BulletinDelete());
 		map.put("/bulletinListPaging.do", new BulletinListPaging());
 		
 		// 공지사항
@@ -78,7 +82,9 @@ public class FrontController extends HttpServlet{
 		map.put("/notice.do", new Notice());
 		map.put("/noticeUpdate.do", new NoticeUpdate());
 		map.put("/noticeInsert.do", new NoticeInsert());
+		map.put("/noticeInsertForm.do", new NoticeInsertForm());
 		map.put("/noticeForm.do", new NoticeInsertForm());
+		map.put("/noticeDelete.do", new NoticeDelete());
 	}
 
 	@Override

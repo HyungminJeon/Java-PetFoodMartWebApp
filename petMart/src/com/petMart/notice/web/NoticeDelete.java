@@ -22,7 +22,7 @@ public class NoticeDelete implements DbCommand {
 		int r = service.deleteNotice(vo);
 		System.out.println(r+"건 삭제됨");
 		
-		return "noticeListPaging.do";
+		return "noticeList.do";
 	}
 
 }

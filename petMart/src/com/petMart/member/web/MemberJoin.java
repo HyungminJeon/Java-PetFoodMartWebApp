@@ -44,7 +44,7 @@ public class MemberJoin implements DbCommand {
 		int cnt = service1.getCountCart(id);
 		session.setAttribute("cartCnt", cnt);
 		
-		return "home/homePage.tiles";
+		return "/homePage.do";
 	}
 
 }

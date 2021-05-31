@@ -73,7 +73,7 @@
 				</c:if>
 				<thead class="thead-dark">
 					<tr>
-						<th scope="col" width="50">순번</th>
+						<th scope="col" width="50">글번호</th>
 						<th scope="col" width="250">제목</th>
 						<th scope="col" width="100">작성자</th>
 						<th scope="col" width="100">작성일자</th>

@@ -124,6 +124,8 @@ public class BulletinServiceImpl extends DAO implements BulletinService{
 			r = psmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 		return r;
 	}

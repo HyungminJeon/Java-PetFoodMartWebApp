@@ -25,7 +25,6 @@ public class NoticeUpdate implements DbCommand {
 		int r = service.updateNotice(vo);
 		System.out.println(r+"건 수정됨");
 
-		return "noticeList.do";
+		return "noticeListPaging.do";
 	}
-
 }
