@@ -75,6 +75,7 @@ public class FrontController extends HttpServlet{
 		map.put("/bulletinUpdate.do", new BulletinUpdate());
 		map.put("/bulletinDelete.do", new BulletinDelete());
 		map.put("/bulletinListPaging.do", new BulletinListPaging());
+		//
 		
 		// 공지사항
 		map.put("/noticeList.do", new NoticeList());
