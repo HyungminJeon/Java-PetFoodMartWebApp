@@ -9,6 +9,7 @@ import java.util.List;
 import com.petMart.bulletin.service.BulletinService;
 import com.petMart.bulletin.vo.BulletinVO;
 import com.petMart.common.DAO;
+import com.petMart.notice.vo.NoticeVO;
 
 
 public class BulletinServiceImpl extends DAO implements BulletinService{
@@ -183,6 +184,29 @@ public class BulletinServiceImpl extends DAO implements BulletinService{
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+	}
+
+	public List<BulletinVO> homePageBulletinList(){
+		String sql = "select * from (select * from bulletin order by reg_date desc) where rownum <= 7";
+		List<BulletinVO> list = new ArrayList<>();
+		try {
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			while(rs.next()) {
+				BulletinVO vo = new BulletinVO();
+				vo.setId(rs.getInt("id"));
+				vo.setTitle(rs.getString("title"));
+				vo.setContent(rs.getString("content"));
+				vo.setRegDate(rs.getDate("reg_date"));
+				vo.setHit(rs.getInt("hit"));
+				list.add(vo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return list;
 	}
 	
 }

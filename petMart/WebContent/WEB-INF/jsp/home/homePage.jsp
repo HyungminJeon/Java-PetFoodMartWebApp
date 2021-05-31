@@ -85,16 +85,16 @@
 		
 		
 		
-		
+		<!-- 공지사항 최신 순 상위 7건 -->
 		<div class="container col-md-10">
 			<div class="container col-md-10" style="text-align:center">
 				<h3>NOTICE</h3>
-				<table class="table">
+				<table class="table table-hover">
 					<tr>
 						<td>제목</td>
 						<td>작성일자</td>
 					</tr>
-					<c:forEach items="${noticeList }" var="vo">
+					<c:forEach items="${homepageNoticeList }" var="vo">
 						<tr>
 							<td>${vo.title }</td>
 							<td>${vo.regDate }</td>
@@ -102,14 +102,17 @@
 					</c:forEach>
 				</table>
 			</div><hr>
+			
+			
+			<!-- 자유게시판 최신 순 상위 7건 -->
 			<div class="container col-md-10" style="text-align:center">
 				<h3>Free Board</h3>
-				<table class="table">
+				<table class="table table-hover">
 					<tr>
 						<td>제목</td>
 						<td>작성일자</td>
 					</tr>
-					<c:forEach items="${bulletinList }" var="vo">
+					<c:forEach items="${homepageBulletinList }" var="vo">
 						<td>${vo.title }</td>
 						<td>${vo.regDate }</td>
 					</c:forEach>
