@@ -20,7 +20,11 @@ public class MemberJoin implements DbCommand {
 		String id = request.getParameter("memberId");
 		String pwd = request.getParameter("memberPwd");
 		String name = request.getParameter("memberName");
-		String addr = request.getParameter("memberAddr");
+		String zip = request.getParameter("memberAddressZip");
+		String addr1 = request.getParameter("memberAddress");
+		String addr2 = request.getParameter("memberAddressDetail");
+		
+		String addr = zip + " " + addr1 + " " + addr2; 
 		
 		
 		MemberVO vo = new MemberVO();

@@ -17,9 +17,8 @@
                         <c:if test="${id ne null}">
                         	<li class="nav-item"><a class="nav-link" href="memberLoginOut.do">Logout</a></li>
                         </c:if>
-                        <c:if test="${id ne null}">
-                        	<li class="nav-item"><a class="nav-link" href="memberCancelForm.do">Cancel membership</a></li>
-                        </c:if>
+                       
+                        
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -30,9 +29,13 @@
                             </ul>
                             
                         </li>
-                    </ul>
+                        </ul>
+                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   
+                   
 	                    <form action="searchList.do" method="post">
-	                		<input class="form-control" name="keyword" type="text" size="25" placeholder="I wanna buy... press Enter" required="required">
+	                		<input class="form-control" name="keyword" type="text" size="15" placeholder="Search" required="required">
 	                    </form>
                     <c:if test="${id ne null}">
 	                   <form class="d-flex" action="cartList.do?">
@@ -44,6 +47,12 @@
 	                       </button>
 	                   </form>
                     </c:if>
+                    
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                     <c:if test="${id ne null}">
+                        	<li class="nav-item"><a class="nav-link" href="memberCancelForm.do">Membership Cancellation</a></li>
+                        </c:if>
+                     </ul>
                 </div>
             </div>
         </nav>
