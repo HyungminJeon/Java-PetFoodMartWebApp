@@ -19,11 +19,18 @@ public class ProductServiceImpl extends DAO implements ProductService {
 	String sql;
 
 	
-	public List<ProductVO> productSelectListPaging() {
-		sql = "select * from product order by 1";
+	public List<ProductVO> productSelectListPaging(int page) {
+		String sql = "select b.* from(select rownum rn,a.* from (select * from product order by item_code) a ) b where b.rn between ? and ?";
 		List<ProductVO> list = new ArrayList<>();
+		int firstCnt = 0, lastCnt = 0;
+		firstCnt = (page - 1) * 10 + 1; // 1
+		lastCnt = (page * 10); // 10
+		// 3페이지면, (3-1) * 10 + 1; = 21 ~ 30
+		// 4페이지면, (4-1) * 10 + 1; = 31 ~ 40
 		try {
 			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, firstCnt);
+			psmt.setInt(2, lastCnt);
 			rs = psmt.executeQuery();
 			while(rs.next()) {
 				ProductVO vo = new ProductVO();
