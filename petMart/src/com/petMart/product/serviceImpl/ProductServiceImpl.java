@@ -259,10 +259,7 @@ public class ProductServiceImpl extends DAO implements ProductService {
 	}
 	
 	public void mergeCartList(String id, String guestId) {
-		sql = "insert into cart select * from "
-				+ "( select replace(g.guest_id, ?, ?) user_id, g.item_code, item_qty from "
-				+ "(select guest_id, item_code, item_qty from guestcart) g, product p "
-				+ "where g.item_code = p.item_code and g.guest_id = ?)";
+		sql = "insert into cart(select replace(guest_id, ?, ?), item_code, item_qty from guestcart where guest_id = ?)";
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, guestId);

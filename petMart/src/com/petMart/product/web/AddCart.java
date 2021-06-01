@@ -2,6 +2,7 @@ package com.petMart.product.web;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.petMart.common.DbCommand;
 import com.petMart.product.serviceImpl.ProductServiceImpl;
@@ -18,15 +19,17 @@ public class AddCart implements DbCommand {
 		String itemCode = request.getParameter("itemCode");
 		int qty = 1;
 		
+		ProductServiceImpl service = new ProductServiceImpl();
+		
 		if(guestId != null) {
-			ProductServiceImpl service = new ProductServiceImpl();
 			service.addGuestCart(guestId, itemCode, qty);
 		}
 		
 		if(id != null) {
-			ProductServiceImpl service = new ProductServiceImpl();
 			service.addCart(id, itemCode, qty);
 		}
+		
+		
 		return "/productListPaging.do";
 		
 	}

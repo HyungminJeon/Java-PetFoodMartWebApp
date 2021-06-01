@@ -1,5 +1,6 @@
 package com.petMart.member.web;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -26,6 +27,7 @@ public class MemberLogin implements DbCommand {
 		vo.setPwd(pwd);
 		
 		MemberServiceImpl service = new MemberServiceImpl();
+		ProductServiceImpl service1 = new ProductServiceImpl();
 		MemberVO rvo = service.loginCheck(vo);
 		
 		String path = "";
@@ -33,14 +35,24 @@ public class MemberLogin implements DbCommand {
 		
 		if(rvo != null) { // 회원이 있는 경우
 			session.setAttribute("id", rvo.getId());
-			ProductServiceImpl service1 = new ProductServiceImpl();
-			int cnt = service1.getCountCart(rvo.getId());
-			session.setAttribute("cartCnt", cnt);
+			// 쿠키 정보 읽어오기
+			Cookie[] cookies = request.getCookies();
+			for(Cookie cookie : cookies) {
+				if(cookie.getName().equals("guestBasketId")) {
+					String guestId = cookie.getValue();
+					service1.mergeCartList(rvo.getId(), guestId);
+					// 쿠키 삭체 요청
+					cookie.setMaxAge(0); // 쿠키 유효 시간을 0으로 만듦
+					response.addCookie(cookie); // 클라이언트의 쿠키를 서버가 마음대로 삭제할 수 없으므로 위의 쿠키를 덮어씌워서 보냄
+					break;
+				}
+			}
 			request.setAttribute("vo", rvo);
 			path = "/homePage.do";
 		} else { // 회원이 없는 경우
 			path = "/memberLoginFail.do";
 		}
+	
 		
 		return path;
 	}

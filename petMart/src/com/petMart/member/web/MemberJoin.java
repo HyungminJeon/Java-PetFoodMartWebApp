@@ -19,7 +19,7 @@ public class MemberJoin implements DbCommand {
 		
 		
 		String id = request.getParameter("memberId");
-		String pwd = request.getParameter("memberPwd");
+		String pwd = request.getParameter("memberPwd1");
 		String name = request.getParameter("memberName");
 		String zip = request.getParameter("memberAddressZip");
 		String addr1 = request.getParameter("memberAddress");
@@ -41,15 +41,19 @@ public class MemberJoin implements DbCommand {
 		session.setAttribute("id", id);
 		session.setAttribute("member", vo);
 		
+		// 쿠키 정보 읽어오기
 		Cookie[] cookies = request.getCookies();
-		String guestId = cookies[0].getValue();
-		
-		ProductServiceImpl service1 = new ProductServiceImpl();
-		service1.mergeCartList(vo.getId(), guestId);
-		cookies[0].setMaxAge(0); // 쿠키 파기
-		
-		int cnt = service1.getCountCart(id);
-		session.setAttribute("cartCnt", cnt);
+		for(Cookie cookie : cookies) {
+			if(cookie.getName().equals("guestBasketId")) {
+				String guestId = cookie.getValue();
+				ProductServiceImpl service1 = new ProductServiceImpl();
+				service1.mergeCartList(vo.getId(), guestId);
+				// 쿠키 삭체 요청
+				cookie.setMaxAge(0); // 쿠키 유효 시간을 0으로 만듦
+				response.addCookie(cookie); // 클라이언트의 쿠키를 서버가 마음대로 삭제할 수 없으므로 위의 쿠키를 덮어씌워서 보냄
+				break;
+			}
+		}
 		
 		return "/homePage.do";
 	}

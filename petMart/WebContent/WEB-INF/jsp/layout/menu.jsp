@@ -5,20 +5,21 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 <!--cartCnt 가져올 스크립트 -->
 <script>
-   	var id = "${id }";
-   	if(id == null){ // 아이디가 없으면 사용
-   		id = $.cookie('guestBasketId');
-   	}
+   	var id = '${id }';
+   	if(id == ""){ // 아이디가 없으면 사용
+   		if($.cookie('guestBasketId') == null){ // 아이디가 없으면서 쿠키도 없으면 쿠키를 생성
+   			const ranNum = Math.random();
+			// 이틀 뒤에 파기. 지정하지 않으면 session cookie가 된다
+			$.cookie('guestBasketId', ranNum, {expires: 2});
+   		}
+		id = $.cookie('guestBasketId');
+   	}/*
    	$.ajax({
    		url:'getCartCount.do',
-   		data:{id: id},
-   		success:function(result){
-			console.log(result);
-   		},
-   		error:function(err){
-   			console.log(err);
-   		}
+   		async: false,
+   		data:{id: 'id'},
    	});
+   	*/
 </script>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
