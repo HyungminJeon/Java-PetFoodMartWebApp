@@ -210,6 +210,72 @@ public class ProductServiceImpl extends DAO implements ProductService {
 		return rCnt;
 	}
 	
+	public int getCountGuestCart(String id) {
+		sql = "select count(*) from guestcart where guest_id = ?";
+		int rCnt = 0;
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, id);
+			rs = psmt.executeQuery();
+			if(rs.next()) {
+				rCnt = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return rCnt;
+	}
+	
+	
+	public List<CartVO> guestCartList(String id) {
+		sql = "select * from (select guest_id, item_code, sum(item_qty) qty from guestcart group by guest_id, item_code)"
+				+ " guestcart, product p where guestcart.item_code = p.item_code and guestcart.guest_id = ?";
+		List<CartVO> list = new ArrayList<>();
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, id);
+			rs = psmt.executeQuery();
+			while(rs.next()) {
+				CartVO vo = new CartVO();
+				vo.setUserId(rs.getString("guest_id"));
+				vo.setItemCode(rs.getString("item_code"));
+				vo.setItemQty(rs.getInt("qty"));
+				vo.setItemDesc(rs.getString("item_desc"));
+				vo.setItemImage(rs.getString("item_image"));
+				vo.setItemName(rs.getString("item_name"));
+				vo.setPrice(rs.getInt("price"));
+				vo.setSalePrice(rs.getInt("sale_price"));
+				vo.setSale(rs.getString("sale"));
+				list.add(vo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return list;
+	}
+	
+	public void mergeCartList(String id, String guestId) {
+		sql = "insert into cart select * from "
+				+ "( select replace(g.guest_id, ?, ?) user_id, g.item_code, item_qty from "
+				+ "(select guest_id, item_code, item_qty from guestcart) g, product p "
+				+ "where g.item_code = p.item_code and g.guest_id = ?)";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, guestId);
+			psmt.setString(2, id);
+			psmt.setString(3, guestId);
+			psmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+	}
+	
 	public List<CartVO> cartList(String id) {
 		sql = "select * from\r\n"
 				+ "(select user_id, item_code, sum(item_qty) qty from cart\r\n"

@@ -34,7 +34,7 @@
 				<c:set var="sum" value="0"></c:set>
 				<c:forEach items="${cartList }" var="vo">
 					<tr>
-						<td><img class="card-img-top" style="width:100px; height:80px;" src="upload/${vo.itemImage }" onerror="this.src='upload/no_image.jpg'" alt="..." /></td>
+						<td><img class="card-img-top" style="width:100px; height:80px;" src="upload/${vo.itemImage }" onerror="this.style.display='none';" /></td>
 						<td>${vo.itemName }</td>
 						<td>${vo.itemDesc }</td>
 						<td>${vo.price }</td>

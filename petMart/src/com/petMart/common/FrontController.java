@@ -33,6 +33,7 @@ import com.petMart.notice.web.NoticeListPaging;
 import com.petMart.notice.web.NoticeUpdate;
 import com.petMart.product.web.AddCart;
 import com.petMart.product.web.CartList;
+import com.petMart.product.web.GetCartCount;
 import com.petMart.product.web.ProductList;
 import com.petMart.product.web.ProductListPaging;
 
@@ -64,8 +65,9 @@ public class FrontController extends HttpServlet{
 		map.put("/cartList.do", new CartList());
 		map.put("/productListPaging.do", new ProductListPaging());
 		
-		// 메뉴 바 검색
+		// 메뉴 바
 		map.put("/searchList.do", new SearchList());
+		map.put("/getCartCount.do", new GetCartCount());
 		
 		// 자유 게시판
 		map.put("/bulletinList.do", new BulletinList());
@@ -75,7 +77,6 @@ public class FrontController extends HttpServlet{
 		map.put("/bulletinUpdate.do", new BulletinUpdate());
 		map.put("/bulletinDelete.do", new BulletinDelete());
 		map.put("/bulletinListPaging.do", new BulletinListPaging());
-		//
 		
 		// 공지사항
 		map.put("/noticeList.do", new NoticeList());

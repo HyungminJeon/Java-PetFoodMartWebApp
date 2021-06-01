@@ -19,23 +19,15 @@ public class CartList implements DbCommand {
 		// 세션, id 획득
 		HttpSession session = request.getSession();
 		String id = (String)session.getAttribute("id");
-		
-//		if(id != null) {
-//			Cookie[] cookies = request.getCookies();
-//			 for(Cookie cookie:cookies) {
-//				 if(cookie.getValue())
-//			 }
-//			 
-//			
-//		} else {
-//			
-//		}
-
-		
+		 
+		if(id == null) {
+			Cookie[] cookies = request.getCookies();
+			id = cookies[0].getValue();
+		}
 		
 		// 장바구니 목록
 		ProductServiceImpl service = new ProductServiceImpl();
-		List<CartVO> list = service.cartList(id);
+		List<CartVO> list = service.guestCartList(id);
 		
 		request.setAttribute("cartList", list);
 		

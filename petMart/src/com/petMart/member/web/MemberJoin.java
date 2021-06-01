@@ -1,5 +1,6 @@
 package com.petMart.member.web;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -40,7 +41,13 @@ public class MemberJoin implements DbCommand {
 		session.setAttribute("id", id);
 		session.setAttribute("member", vo);
 		
+		Cookie[] cookies = request.getCookies();
+		String guestId = cookies[0].getValue();
+		
 		ProductServiceImpl service1 = new ProductServiceImpl();
+		service1.mergeCartList(vo.getId(), guestId);
+		cookies[0].setMaxAge(0); // 쿠키 파기
+		
 		int cnt = service1.getCountCart(id);
 		session.setAttribute("cartCnt", cnt);
 		

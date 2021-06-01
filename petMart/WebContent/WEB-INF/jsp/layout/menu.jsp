@@ -1,6 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<!--cartCnt 가져올 스크립트 -->
+<script>
+   	var id = "${id }";
+   	if(id == null){ // 아이디가 없으면 사용
+   		id = $.cookie('guestBasketId');
+   	}
+   	$.ajax({
+   		url:'getCartCount.do',
+   		data:{id: id},
+   		success:function(result){
+			console.log(result);
+   		},
+   		error:function(err){
+   			console.log(err);
+   		}
+   	});
+</script>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
                 <a class="navbar-brand" href="homePage.do">
