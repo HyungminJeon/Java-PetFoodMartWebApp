@@ -28,6 +28,7 @@ public class MemberLogin implements DbCommand {
 		
 		MemberServiceImpl service = new MemberServiceImpl();
 		ProductServiceImpl service1 = new ProductServiceImpl();
+		ProductServiceImpl service2 = new ProductServiceImpl();
 		MemberVO rvo = service.loginCheck(vo);
 		
 		String path = "";
@@ -47,7 +48,7 @@ public class MemberLogin implements DbCommand {
 			for(Cookie cookie : cookies) {
 				if(cookie.getName().equals("guestBasketId")) {
 					String guestId = cookie.getValue();
-					service1.mergeCartList(rvo.getId(), guestId);
+					service2.mergeCartList(rvo.getId(), guestId);
 					// 쿠키 삭체 요청
 					cookie.setMaxAge(0); // 쿠키 유효 시간을 0으로 만듦
 					response.addCookie(cookie); // 클라이언트의 쿠키를 서버가 마음대로 삭제할 수 없으므로 위의 쿠키를 덮어씌워서 보냄
