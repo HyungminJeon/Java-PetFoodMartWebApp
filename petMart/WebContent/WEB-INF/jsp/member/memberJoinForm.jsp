@@ -77,7 +77,7 @@ function findAddr(){
 					$('#checkSMS').click(function(){ // 성공해서 sendSMS에서 값을 건네받은 경우에, 인증번호 버튼을 클릭 시 값을 검사
 						if($('#smsKey').val() == code){ // 사용자의 입력값과 sendSMS에서 받은 값이 일치하는 경우
 							alert('인증되었습니다');
-							$('#checkSMS').val('checked');
+							frm.checkSMS.value = 'checked';
 						} else {
 							alert('인증번호가 틀립니다');
 						}
