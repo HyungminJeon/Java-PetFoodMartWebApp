@@ -35,8 +35,6 @@ public class MemberLogin implements DbCommand {
 		HttpSession session = request.getSession();
 		
 		//새롭게 로그인한 회원의 카트정보 가져오기 (메뉴에 숫자보여주기 위해)
-		int cnt = service1.getCountCart(rvo.getId());
-		
 		
 		
 		if(rvo != null) { // 회원이 있는 경우
@@ -48,23 +46,19 @@ public class MemberLogin implements DbCommand {
 			for(Cookie cookie : cookies) {
 				if(cookie.getName().equals("guestBasketId")) {
 					String guestId = cookie.getValue();
-					service2.mergeCartList(rvo.getId(), guestId);
+					service1.mergeCartList(rvo.getId(), guestId);
 					// 쿠키 삭체 요청
 					cookie.setMaxAge(0); // 쿠키 유효 시간을 0으로 만듦
 					response.addCookie(cookie); // 클라이언트의 쿠키를 서버가 마음대로 삭제할 수 없으므로 위의 쿠키를 덮어씌워서 보냄
 					break;
 				}
 			}
+			
+			int cnt = service2.getCountCart(rvo.getId());
 			request.setAttribute("vo", rvo);
 			session.setAttribute("cartCnt", cnt);
 			path = "/homePage.do";
-			
-			// 회원이 없는 경우
-		}
-	
-		
-		return path;
 	}
-	
-
+		return path;
+}
 }
