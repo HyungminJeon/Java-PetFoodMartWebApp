@@ -13,13 +13,12 @@
 			$.cookie('guestBasketId', ranNum, {expires: 2});
    		}
 		id = $.cookie('guestBasketId');
-   	}/*
+   	}
    	$.ajax({
    		url:'getCartCount.do',
    		async: false,
    		data:{id: 'id'},
    	});
-   	*/
 </script>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
