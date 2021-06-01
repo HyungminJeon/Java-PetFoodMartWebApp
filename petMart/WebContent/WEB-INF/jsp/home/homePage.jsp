@@ -23,10 +23,11 @@
 	
 	
 	<!-- 상품 좋아요 순 상위 5건 -->
-	<div class="container col-md-12">
-		<h3>HOT 5</h3>
+	<div class="container col-md-12" style="text-align:center">
+		
 		<section class="py-5">
-	<div class="container px-4 px-lg-5 mt-5">
+		<h3>HOT 5</h3>
+	<div class="container px-4 px-lg-5 mt-5" style="text-align:center; " >
 		<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
 			<c:forEach items="${homepageProductList }" var="vo">
 				<div class="col mb-5">

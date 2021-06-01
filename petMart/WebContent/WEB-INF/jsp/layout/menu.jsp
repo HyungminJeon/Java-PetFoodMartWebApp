@@ -18,7 +18,6 @@
    	}
    	$.ajax({
    		url:'getCartCount.do',
-   		async: false,
    		data:{id: 'id'},
    	});
 </script>

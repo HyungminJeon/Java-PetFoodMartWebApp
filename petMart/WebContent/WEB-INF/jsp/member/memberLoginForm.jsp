@@ -1,9 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
 <title>memberLoginForm.jsp</title>
 <script>
 
@@ -24,13 +20,11 @@ function formCheck() {
 </script>
 
 
-</head>
-<body>
 	<div align = "center">
 	<h1>로그인</h1>
 		<form id="frm" action="memberLogin.do" method="post">
 			<div>
-				<table border="1">
+				<table style="border:'1'; border-collapse:collapse;">
 					<tr>
 						<th>아이디</th>
 						<td><input type="text" id="memberId" name="memberId">
@@ -53,5 +47,3 @@ function formCheck() {
 			</div>
 		</form>
 	</div>
-</body>
-</html>
