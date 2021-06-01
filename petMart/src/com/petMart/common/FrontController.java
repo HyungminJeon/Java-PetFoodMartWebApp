@@ -24,6 +24,7 @@ import com.petMart.member.web.MemberLogOut;
 import com.petMart.member.web.MemberLogin;
 import com.petMart.member.web.MemberLoginFail;
 import com.petMart.member.web.MemberLoginForm;
+import com.petMart.member.web.SendSMS;
 import com.petMart.notice.web.Notice;
 import com.petMart.notice.web.NoticeDelete;
 import com.petMart.notice.web.NoticeInsert;

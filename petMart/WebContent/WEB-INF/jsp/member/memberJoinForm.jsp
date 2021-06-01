@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js">
-</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"> //주소입력 스크립트
 </script>
 
@@ -62,6 +60,31 @@ function findAddr(){
 				}
 			});
 		});
+		
+		// #sendSMS : 인증번호를 보내는 버튼
+		// #checkSMS : 인증 번호 확인 버튼
+		// #smsKey : 사용자의 검사할 입력값이 있는 input tag
+		$('#sendSMS').click(function(){ // 인증 번호 보내기
+			var tel = $('#tel').val(); // 인증번호를 보낼 사용자가 입력한 tel
+			$.ajax({
+				url:'sendSMS',
+				data:{
+					tel:tel
+				},
+				type:'post',
+				success:function(code){
+					alert('인증번호가 전송되었습니다');
+					$('#checkSMS').click(function(){ // 성공해서 sendSMS에서 값을 건네받은 경우에, 인증번호 버튼을 클릭 시 값을 검사
+						if($('#smsKey').val() == code){ // 사용자의 입력값과 sendSMS에서 받은 값이 일치하는 경우
+							alert('인증되었습니다');
+						} else {
+							alert('인증번호가 틀립니다');
+						}
+					})
+				}
+			});
+		})
+		
 	})
 
 	function formCheck() {
@@ -86,9 +109,18 @@ function findAddr(){
 			frm.memberPwd.focus();
 			return false;
 		}
-		alert("정상적으로 회원가입 되었습니다")
+		
+		if (frm.checkSMS.value == "unChecked") {
+			alert("문자 인증을 하세요");
+			frm.smsKey.focus();
+			return false;
+		}
+		
+		alert("정상적으로 회원가입 되었습니다");
 		frm.submit();
 	}
+	
+
 	
 </script>
 
@@ -123,6 +155,11 @@ function findAddr(){
 						<td width="300"><input type="text" id="memberName"
 							name="memberName"></td>
 					</tr>
+					<tr>
+						<th width="150">전화번호</th>
+						<td width="300"><input type="text" id="tel"
+							name="tel"></td>
+					</tr>
 					<tr><td colspan="2">&nbsp;</td></tr>
 					<tr>
 						<th width="150">주소
@@ -138,16 +175,25 @@ function findAddr(){
  						<input type="text" placeholder="Detailed Address" name="memberAddressDetail">
 						</td>
 					</tr>
+					<tr>
+						<td>인증 번호</td>
+						<td>
+ 						<input type="text" placeholder="인증번호를 입력하세요" id="smsKey" value="">
+ 						<input type="button" id="sendSMS" value="번호 전송"></input>
+ 						<button type="button" id="checkSMS" value="unChecked">인증 번호 확인</button>
+						</td>
+					</tr>
 				</table>
 			</div>
 			<br>
  			<br>
 			<div>
-  
- 
 				<button type="button" onclick="formCheck()">가입하기</button>
 				<button type="button" onclick="location.href='homePage.do'">홈</button>
 			</div>
+		</form>
+		<form action="">
+			
 		</form>
 	</div>
 

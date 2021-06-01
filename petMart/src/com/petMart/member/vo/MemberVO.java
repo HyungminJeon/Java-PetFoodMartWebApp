@@ -5,8 +5,16 @@ public class MemberVO {
 	private String pwd;
 	private String name;
 	private String addr;
+	private String tel;
+	
 	public String getId() {
 		return id; 
+	}
+	public String getTel() {
+		return tel;
+	}
+	public void setTel(String tel) {
+		this.tel = tel;
 	}
 	public void setId(String id) {
 		this.id = id;

@@ -74,7 +74,7 @@ public class MemberServiceImpl extends DAO implements MemberService{
 	@Override
 	public int insertMember(MemberVO vo) {
 		int r = 0;
-		String sql = "insert into member(id, name, passwd, address) values(?,?,?,?)";
+		String sql = "insert into member(id, name, passwd, address, tel) values(?,?,?,?,?)";
 		try {
 			System.out.println(vo.getId() + "Imple");
 			System.out.println(vo.getName() + vo.getPwd() + vo.getAddr());
@@ -83,6 +83,7 @@ public class MemberServiceImpl extends DAO implements MemberService{
 			psmt.setString(2, vo.getName());
 			psmt.setString(3, vo.getPwd());
 			psmt.setString(4, vo.getAddr());
+			psmt.setString(5, vo.getTel());
 			r = psmt.executeUpdate();
 			System.out.println(r+"건 입력됨");
 		} catch (SQLException e) {
