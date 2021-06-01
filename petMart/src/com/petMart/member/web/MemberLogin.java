@@ -37,8 +37,6 @@ public class MemberLogin implements DbCommand {
 		//새롭게 로그인한 회원의 카트정보 가져오기 (메뉴에 숫자보여주기 위해)
 		int cnt = service1.getCountCart(rvo.getId());
 		
-		
-		
 		if(rvo != null) { // 회원이 있는 경우
 			session.setAttribute("id", rvo.getId());
 			
@@ -59,13 +57,8 @@ public class MemberLogin implements DbCommand {
 			session.setAttribute("cartCnt", cnt);
 			path = "/homePage.do";
 			
-		} else { // 회원이 없는 경우
-			path = "/memberLoginFail.do";
 		}
-	
-		
 		return path;
 	}
-	
 
 }
