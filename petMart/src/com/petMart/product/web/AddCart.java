@@ -30,7 +30,7 @@ public class AddCart implements DbCommand {
 		}
 		
 		
-		return "/productListPaging.do";
+		return "/getCartCount.do";
 		
 	}
 

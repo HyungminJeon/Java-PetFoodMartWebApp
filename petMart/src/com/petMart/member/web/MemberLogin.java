@@ -58,8 +58,7 @@ public class MemberLogin implements DbCommand {
 			session.setAttribute("cartCnt", cnt);
 			path = "/homePage.do";
 			
-		} else { // 회원이 없는 경우
-			path = "/memberLoginFail.do";
+			// 회원이 없는 경우
 		}
 	
 		

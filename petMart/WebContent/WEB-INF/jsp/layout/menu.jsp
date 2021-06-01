@@ -16,10 +16,11 @@
    		}
 		id = $.cookie('guestBasketId');
    	}
-   	$.ajax({
-   		url:'getCartCount.do',
-   		data:{id: 'id'},
-   	});
+   	//$.ajax({
+   	//	url:'getCartCount.do',
+   	//	data:{id: 'id'},
+   	//	async: false
+   	//});
 </script>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
