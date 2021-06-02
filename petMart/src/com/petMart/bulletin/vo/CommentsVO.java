@@ -10,8 +10,14 @@ public class CommentsVO {
 	private String content;
 	private int depth;
 	private Date date;
+	private int parent_id;
 	
-	
+	public int getParent_id() {
+		return parent_id;
+	}
+	public void setParent_id(int parent_id) {
+		this.parent_id = parent_id;
+	}
 	public int getCid() {
 		return cid;
 	}

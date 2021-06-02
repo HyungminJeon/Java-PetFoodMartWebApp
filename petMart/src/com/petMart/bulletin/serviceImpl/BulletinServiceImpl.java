@@ -213,7 +213,7 @@ public class BulletinServiceImpl extends DAO implements BulletinService{
 	}
 
 	public List<CommentsVO> commentsSelectList(int bid) {
-		sql = "select c.* from comments c, bulletin b where c.bid = b.ID and c.bid = ? order by group_id, depth";
+		sql = "SELECT * FROM comments WHERE bid = ? START WITH depth = 0 CONNECT BY PRIOR cid = parent_id";
 		List<CommentsVO> list = new ArrayList<>();
 		try {
 			psmt = conn.prepareStatement(sql);
@@ -228,6 +228,7 @@ public class BulletinServiceImpl extends DAO implements BulletinService{
 				vo.setDepth(rs.getInt("depth"));
 				vo.setGroup_id(rs.getInt("group_id"));
 				vo.setWriter(rs.getString("writer"));
+				vo.setParent_id(rs.getInt("parent_id"));
 				list.add(vo);
 			}
 		} catch (SQLException e) {
@@ -238,17 +239,15 @@ public class BulletinServiceImpl extends DAO implements BulletinService{
 		return list;
 	}
 
-	public int replyComment(CommentsVO vo) {
-		sql = "insert into comments values(cid_seq.nextval, ?, ?, ?, sysdate, ?, ?)";
+	// 새로운 댓글을 생성하는 함수
+	public int newComment(CommentsVO vo) {
+		sql = "insert into comments values(cid_seq.nextval, ?, group_Id_seq.nextval, ?, sysdate, 0, ?, null)";
 		int r = 0;
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, vo.getBid());
-			psmt.setInt(2, vo.getGroup_id());
-			psmt.setString(3, vo.getWriter());
-			psmt.setInt(4, vo.getDepth());
-			psmt.setString(5, vo.getContent());
-			
+			psmt.setString(2, vo.getWriter());
+			psmt.setString(3, vo.getContent());
 			r = psmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -258,6 +257,26 @@ public class BulletinServiceImpl extends DAO implements BulletinService{
 		return r;
 	}
 	
+	// 기존 댓글에 답장하는 함수
+	public int replyComment(CommentsVO vo) {
+		sql = "insert into comments values(cid_seq.nextval, ?, ?, ?, sysdate, ?, ?, ?)";
+		int r = 0;
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, vo.getBid());
+			psmt.setInt(2, vo.getGroup_id());
+			psmt.setString(3, vo.getWriter());
+			psmt.setInt(4, vo.getDepth());
+			psmt.setString(5, vo.getContent());
+			psmt.setInt(6, vo.getParent_id());
+			r = psmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return r;
+	}
 	
 	
 }
