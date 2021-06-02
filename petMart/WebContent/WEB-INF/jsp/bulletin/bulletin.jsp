@@ -22,38 +22,47 @@
 			deleteFrm.submit();
 		}
 		
-		// 클릭 시에 답글창을 만들어주는 메서드
-		function addComment(target){
-			console.log('테스트');
-			// 새로 열기에 앞서 다른 위치에 답글창과 Btn이 있으면 삭제하는 과정
-			var areaList = document.getElementsByName('clickedTextArea');
-			areaList.forEach(function(item){
-				item.remove();
-			});
-			var btnList = document.getElementsByName('clickedBtn');
-			btnList.forEach(function(item){
-				item.remove();
-			});
-			// 클릭한 위치에 답글창과 Btn 생성
-			var newTextarea = document.createElement('textarea');
-			newTextarea.name = 'clickedTextArea';
-			var submitBtn = document.createElement('button');
-			submitBtn.name = 'clickedBtn';
-			submitBtn.innerText = '댓글 작성';
-			target.append(newTextarea, submitBtn);
+		// 클릭 시에 대댓글창을 보여주는 메서드
+		function showComment(commentId){
+			var cid = commentId;
 			
-			// submitBtn.onclick(function(){
-			// 	// var bid = ${vo.bid };
-
-			// 	// $.ajax({
-			// 	// 	data:{
-			// 	// 		bid:
-			// 	// 	}
-			// 	// });
-			// });
-			// db에 넣을 data
+			// 클릭 부분의 display를 바꿔주기 전에 나머지를 전부 숨긴다
+			var areaList = document.getElementsByName('addCommentsArea');
+			areaList.forEach(function(item){
+				item.style.display = "none";
+			});
+			
+			// 만약에 클릭한 부분의 display가 none이면 show로 바꾸어라
+			if(document.getElementById(cid).style.display == "none"){
+				document.getElementById(cid).style.display = "block";
+			}
 			
 		}
+		function addComment(bulletinId, groupId, writer, depth){
+			console.log('엔터 테스트');
+			var bid = bulletinId;
+			var gid = groupId;
+			var id = writer;
+			var dth = depth;
+			var ctt = document.getElementById(cid).value;
+			
+			console.log(bid, gid, id, dth, ctt);
+			$.ajax({
+				uri:'addComment.do',
+				data:{
+					bid:bid,
+					group_id:gid,
+					writer:id,
+					depth:dth,
+					content:ctt,
+				}
+				success:function(result){
+					console.log('넣었다');
+				}
+			});
+		}	
+			
+			
 		/* 
 		$('#btnUpdate').click(function (e){
 			e.preventDefault();
@@ -113,20 +122,26 @@
 						<td colspan="7"><textarea rows="6" cols="90" name="content" id="content">${bulletin.content }</textarea></td>
 					</tr>
 				</table>
+			</form>
 				<!--  대댓글 창 기능 구현 -->
 				<div align="left">
 					<h5>댓글</h5>
-					<c:forEach items="${commentsList }" var="vo">
-							<div class="border" onclick="addComment(event.target)">
+						<c:forEach items="${commentsList }" var="vo">
+							<div class="border" onclick="showComment(${vo.cid })">
 								<c:if test="${vo.depth != 0 }">
 									<c:forEach begin="1" end="${vo.depth }"><td>&rdca;</td></c:forEach>
 								</c:if>
 								${vo.writer }
 								${vo.content }
+								<c:if test="${id != null }">
+									<textarea style="display:none;" rows="1" cols="70" name="addCommentsArea" id="${vo.cid }"
+									 onkeypress="javascript:if(event.keyCode==13)addComment(${vo.cid }, ${vo.bid }, ${vo.group_id } '${id }', ${vo.depth })"></textarea>
+								</c:if>
 							</div>
 						</c:forEach>
 					<c:if test="${id != null }">
-						<textarea rows="5" cols="75" id="Newcomments"></textarea>
+						<h6>새 댓글 쓰기</h6>
+						<textarea rows="5" cols="75" id="newCommentsArea"></textarea>
 					</c:if>
 				</div>
 				<div>
@@ -137,7 +152,6 @@
 						<button type="button" onclick="bulletinDelete()">삭제</button>
 					</c:if>
 				</div>
-			</form>
 			<form id="deleteFrm" action="bulletinDelete.do" method="post">
 				<input type="hidden" name="id" value="${bulletin.id }">
 			</form>

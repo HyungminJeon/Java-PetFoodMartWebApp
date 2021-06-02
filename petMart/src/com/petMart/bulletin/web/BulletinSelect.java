@@ -29,6 +29,7 @@ public class BulletinSelect implements DbCommand {
 		List<CommentsVO> list = new ArrayList<>();
 		list = service2.commentsSelectList(vo.getId());
 		request.setAttribute("commentsList", list);
+		request.setAttribute("commentsListSize", list.size());
 		return "bulletin/bulletin.tiles";
 	}
 

@@ -238,6 +238,25 @@ public class BulletinServiceImpl extends DAO implements BulletinService{
 		return list;
 	}
 
+	public int replyComment(CommentsVO vo) {
+		sql = "insert into comments values(cid_seq.nextval, ?, ?, ?, sysdate, ?, ?)";
+		int r = 0;
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, vo.getBid());
+			psmt.setInt(2, vo.getGroup_id());
+			psmt.setString(3, vo.getWriter());
+			psmt.setInt(4, vo.getDepth());
+			psmt.setString(5, vo.getContent());
+			
+			r = psmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return r;
+	}
 	
 	
 	

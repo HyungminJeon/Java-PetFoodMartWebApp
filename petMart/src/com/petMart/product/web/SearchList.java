@@ -1,10 +1,11 @@
-package com.petMart.common;
+package com.petMart.product.web;
 
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.petMart.common.DbCommand;
 import com.petMart.product.serviceImpl.ProductServiceImpl;
 import com.petMart.product.vo.ProductVO;
 
