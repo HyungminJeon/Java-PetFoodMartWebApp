@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.petMart.bulletin.service.BulletinService;
 import com.petMart.bulletin.vo.BulletinVO;
+import com.petMart.bulletin.vo.CommentsVO;
 import com.petMart.common.DAO;
 import com.petMart.notice.vo.NoticeVO;
 
@@ -210,5 +211,34 @@ public class BulletinServiceImpl extends DAO implements BulletinService{
 		}
 		return list;
 	}
+
+	public List<CommentsVO> commentsSelectList(int bid) {
+		sql = "select c.* from comments c, bulletin b where c.bid = b.ID and c.bid = ? order by group_id, depth";
+		List<CommentsVO> list = new ArrayList<>();
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, bid);
+			rs = psmt.executeQuery();
+			while(rs.next()) {
+				CommentsVO vo = new CommentsVO();
+				vo.setBid(rs.getInt("bid"));
+				vo.setCid(rs.getInt("cid"));
+				vo.setContent(rs.getString("content"));
+				vo.setDate(rs.getDate("reg_date"));
+				vo.setDepth(rs.getInt("depth"));
+				vo.setGroup_id(rs.getInt("group_id"));
+				vo.setWriter(rs.getString("writer"));
+				list.add(vo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return list;
+	}
+
+	
+	
 	
 }

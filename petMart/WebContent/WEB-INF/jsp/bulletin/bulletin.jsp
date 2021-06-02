@@ -22,6 +22,38 @@
 			deleteFrm.submit();
 		}
 		
+		// 클릭 시에 답글창을 만들어주는 메서드
+		function addComment(target){
+			console.log('테스트');
+			// 새로 열기에 앞서 다른 위치에 답글창과 Btn이 있으면 삭제하는 과정
+			var areaList = document.getElementsByName('clickedTextArea');
+			areaList.forEach(function(item){
+				item.remove();
+			});
+			var btnList = document.getElementsByName('clickedBtn');
+			btnList.forEach(function(item){
+				item.remove();
+			});
+			// 클릭한 위치에 답글창과 Btn 생성
+			var newTextarea = document.createElement('textarea');
+			newTextarea.name = 'clickedTextArea';
+			var submitBtn = document.createElement('button');
+			submitBtn.name = 'clickedBtn';
+			submitBtn.innerText = '댓글 작성';
+			target.append(newTextarea, submitBtn);
+			
+			// submitBtn.onclick(function(){
+			// 	// var bid = ${vo.bid };
+
+			// 	// $.ajax({
+			// 	// 	data:{
+			// 	// 		bid:
+			// 	// 	}
+			// 	// });
+			// });
+			// db에 넣을 data
+			
+		}
 		/* 
 		$('#btnUpdate').click(function (e){
 			e.preventDefault();
@@ -48,6 +80,7 @@
 		}) */
 		
 	</script>
+
 </head>
 <body>
 	<div align="center">
@@ -80,6 +113,22 @@
 						<td colspan="7"><textarea rows="6" cols="90" name="content" id="content">${bulletin.content }</textarea></td>
 					</tr>
 				</table>
+				<!--  대댓글 창 기능 구현 -->
+				<div align="left">
+					<h5>댓글</h5>
+					<c:forEach items="${commentsList }" var="vo">
+							<div class="border" onclick="addComment(event.target)">
+								<c:if test="${vo.depth != 0 }">
+									<c:forEach begin="1" end="${vo.depth }"><td>&rdca;</td></c:forEach>
+								</c:if>
+								${vo.writer }
+								${vo.content }
+							</div>
+						</c:forEach>
+					<c:if test="${id != null }">
+						<textarea rows="5" cols="75" id="Newcomments"></textarea>
+					</c:if>
+				</div>
 				<div>
 					<button type="button" onclick="location.href='bulletinListPaging.do'">목록 보기</button>
 					<c:if test="${id == bulletin.writer }">
