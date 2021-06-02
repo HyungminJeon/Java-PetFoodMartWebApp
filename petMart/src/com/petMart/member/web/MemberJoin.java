@@ -25,6 +25,7 @@ public class MemberJoin implements DbCommand {
 		String addr1 = request.getParameter("memberAddress");
 		String addr2 = request.getParameter("memberAddressDetail");
 		String tel = request.getParameter("tel");
+		String email = request.getParameter("email");
 		
 		String addr = zip + " " + addr1 + " " + addr2; 
 		
@@ -35,6 +36,7 @@ public class MemberJoin implements DbCommand {
 		vo.setName(name);
 		vo.setAddr(addr);
 		vo.setTel(tel);
+		vo.setEmail(email);
 		
 		MemberServiceImpl service = new MemberServiceImpl();
 		service.insertMember(vo);

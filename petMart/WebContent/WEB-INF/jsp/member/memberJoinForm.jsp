@@ -1,9 +1,47 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
+
+
+<%@ page import="com.petMart.member.serviceImpl.MemberServiceImpl"%>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"> //주소입력 스크립트
 </script>
 
+<script>
+
+$(function() { 
+	$('#sendEmail').click(function() {
+	
+		if($('#email').val()=="") {
+			alert('이메일을 입력하세요.');
+			$('#email').focus();
+			return;
+		}
+	$.ajax({
+		url:'ajaxSendEmail',
+		data: {email: $('#email').val()},
+		type: 'post',
+		success: function(code){
+			console.log(code);
+			alert('메일이 전송되었습니다.');
+			$('#checkEmailConfirm').click(function(){ // 성공해서 이메일에서 값을 건네받은 경우에, 인증번호 버튼을 클릭 시 값을 검사
+				if($('#emailCode').val() == code){ // 사용자의 입력값과 sendSMS에서 받은 값이 일치하는 경우
+					alert('인증되었습니다');
+					frm.checkSMS.value = 'checked';
+				} else {
+					alert('인증번호가 틀립니다');
+				}
+			})
+		},
+		error: function(err){
+			console.log(err);
+		}
+		});
+	});
+});
+
+</script>
 
 <script>
 function findAddr(){
@@ -125,13 +163,13 @@ function findAddr(){
 	
 </script>
 
-<div align="center">
+<div  align="center">
 	<div>
 		<h1>회원가입</h1>
 	</div>
 <br>
-	<div>
-		<form id="frm" action="memberJoin.do" method="post">
+	<div >
+		<form id="frm" action="memberJoin.do" method="post" >
 			<div>
 				<table style="border:'1'; border-collapse:collapse;">
 					<tr>
@@ -156,10 +194,37 @@ function findAddr(){
 						<td width="300"><input type="text" id="memberName"
 							name="memberName"></td>
 					</tr>
+					
+					<tr><td colspan="2">&nbsp;</td></tr>
+					<tr>
+						<th>이메일</th>
+						<td width="350">
+ 						<input type="text" placeholder="ex) kim1@naver.com" id="email" value="">
+ 						<input type="button" id="sendEmail" value="인증코드 전송"></input>
+ 						</tr>
+ 						<tr>
+ 						<th></th>
+ 						<td width="350">
+ 						<input type="text" placeholder="인증코드 입력" id="emailCode" value="">
+ 						<button type="button" id="checkEmailConfirm" value="unChecked">인증코드 확인</button>
+						</td>
+					</tr>
+					
+					<tr><td colspan="2">&nbsp;</td></tr>
+					
 					<tr>
 						<th width="150">전화번호</th>
-						<td width="300"><input type="text" id="tel"
-							name="tel"></td>
+						<td width="350"><input type="text" id="tel"
+							name="tel">
+							<input type="button" id="sendSMS" value="인증번호 전송"></input>
+						</td>
+					</tr>
+					<tr>
+						<th>인증 번호</th>
+						<td width="350">
+ 						<input type="text" placeholder="인증번호를 입력하세요" id="smsKey" value="">
+ 						<button type="button" id="checkSMS" value="unChecked">인증번호 확인</button>
+						</td>
 					</tr>
 					<tr><td colspan="2">&nbsp;</td></tr>
 					<tr>
@@ -176,14 +241,7 @@ function findAddr(){
  						<input type="text" placeholder="Detailed Address" name="memberAddressDetail">
 						</td>
 					</tr>
-					<tr>
-						<td>인증 번호</td>
-						<td>
- 						<input type="text" placeholder="인증번호를 입력하세요" id="smsKey" value="">
- 						<input type="button" id="sendSMS" value="번호 전송"></input>
- 						<button type="button" id="checkSMS" value="unChecked">인증 번호 확인</button>
-						</td>
-					</tr>
+					
 				</table>
 			</div>
 			<br>
