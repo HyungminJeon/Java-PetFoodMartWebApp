@@ -10,40 +10,102 @@
 
 <script>
 
-$(function() { 
-	$('#sendEmail').click(function() {
-	
-		if($('#email').val()=="") {
-			alert('이메일을 입력하세요.');
-			$('#email').focus();
-			return;
-		}
-	$.ajax({
-		url:'ajaxSendEmail',
-		data: {email: $('#email').val()},
-		type: 'post',
-		success: function(code){
-			console.log(code);
-			alert('메일이 전송되었습니다.');
-			$('#checkEmailConfirm').click(function(){ // 성공해서 이메일에서 값을 건네받은 경우에, 인증번호 버튼을 클릭 시 값을 검사
-				if($('#emailCode').val() == code){ // 사용자의 입력값과 sendSMS에서 받은 값이 일치하는 경우
-					alert('인증되었습니다');
-					frm.checkSMS.value = 'checked';
-				} else {
-					alert('인증번호가 틀립니다');
-				}
-			})
-		},
-		error: function(err){
-			console.log(err);
-		}
-		});
-	});
-});
+$(function() {
+		$('#sendEmail').click(function() {
 
+			if ($('#email').val() == "") {
+				alert('이메일을 입력하세요.');
+				$('#email').focus();
+				return false;
+			}
+			//email 중복확인 ajax
+			$.ajax({
+				url : 'ajaxEmailCheck',
+				data : {
+					email : $('#email').val()
+				},
+				type : 'post',
+				success : function(data) {
+					console.log(data);
+					if (data > 0) {
+						alert('등록된 이메일이 존재합니다. 새로운 이메일을 입력하세요');
+						$('#email').val('');
+						$('#email').focus();
+					} else {
+						alert('사용가능한 이메일입니다!');
+						$('#sendEmail').val('checked');
+						$('#emailCode').focus();
+						//중복확인 통과후 인증코드 메일보내는 ajax
+						$.ajax({
+							url : 'ajaxSendEmail',
+							data : {
+								email : $('#email').val()
+							},
+							type : 'post',
+							success : function(code) {
+								console.log(code);
+								alert('메일이 전송되었습니다.');
+								$('#checkEmail').click(function() { // 성공해서 이메일에서 값을 건네받은 경우에, 인증번호 버튼을 클릭 시 값을 검사
+									if ($('#emailCode').val() == code) { // 사용자의 입력값과 sendSMS에서 받은 값이 일치하는 경우
+										alert('인증되었습니다');
+										frm.checkEmail.value = 'checked';
+									} else {
+										alert('인증번호가 틀립니다');
+									}
+								})
+							},
+							error : function(err) {
+								console.log(err);
+							}
+						});
+					}
+				},
+				error : function(err) {
+					console.log(err);
+				}
+			});
+		});
+		
+		
+		
+	});
 </script>
 
 <script>
+	//아이디 중복체크
+	$(function() {
+		$('#idCheck').click(function() {
+			if($('#memberId').val()=="") {
+				alert('아이디를 입력하세요.');
+				$('#memberId').focus();
+				return;
+			}
+			$.ajax({
+				url:'ajaxMemberIdCheck',
+				data: {id: $('#memberId').val()},
+				type: 'post',
+				success: function(data){
+					console.log(data);
+					if(data>0) {
+						alert('등록된 아이디가 존재합니다. 새로운 아이디를 입력하세요');
+						$('#memberId').val('');
+						$('#memberId').focus();
+					} else{
+						alert('사용가능한 아이디입니다!');
+						$('#idCheck').val('checked');
+						$('#memberPwd').focus();
+					}
+				},
+				error: function(err){
+					console.log(err);
+				}
+			});
+		});
+	});
+</script>
+
+<script>
+//주소입력
 function findAddr(){
 	new daum.Postcode({
         oncomplete: function(data) {
@@ -67,100 +129,117 @@ function findAddr(){
     }).open();
 }
 </script>
-<script>
 
+<script>
+	//휴대폰 번호입력 ajax
 	$(function() {
-		$('#idCheck').click(function() {
-			if($('#memberId').val()=="") {
-				alert('아이디입력');
-				$('#memberId').focus();
-				return;
+		$('#sendSMS').click(function() { // 클릭하면 인증 번호 보내기
+			var tel = $('#tel').val(); // 인증번호를 보낼 사용자가 입력한 tel
+
+			if (tel == "") {
+				alert('휴대폰번호를 입력하세요.');
+				$('#tel').focus();
+				return false;
 			}
 			
+			//휴대폰번호 중복확인 ajax
 			$.ajax({
-				url:'ajaxMemberIdCheck',
-				data: {id: $('#memberId').val()},
-				type: 'post',
-				success: function(data){
+				url : 'ajaxTelCheck',
+				data : {
+					tel : tel
+				},
+				type : 'post',
+				success : function(data) {
 					console.log(data);
-					if(data>0) {
-						alert('아이디가 존재합니다. 다른 아이디를 입력하세요');
-						$('#memberId').val('');
-						$('#memberId').focus();
-					} else{
-						alert('사용가능한 아이디입니다!');
-						$('#idCheck').val('checked');
-						$('#memberPwd').focus();
+					if (data > 0) {
+						alert('등록된 휴대폰번호가 존재합니다. 새로운 휴대폰번호를 입력하세요');
+						$('#tel').val('');
+						$('#tel').focus();
+					} else {
+						alert('사용가능한 휴대폰번호입니다!');
+						$('#sendSMS').val('checked');
+						$('#smsKey').focus();
+						
+						//사용가능한 휴대폰일때 인증번호 전송 ajax
+						if (tel != null) {
+							$.ajax({
+								url : 'sendSMS',
+								data : {
+									tel : tel
+								},
+								type : 'post',
+								success : function(code) {
+									alert('인증번호가 전송되었습니다');
+									$('#checkSMS').click(function() { // 성공해서 sendSMS에서 값을 건네받은 경우에, 인증번호 버튼을 클릭 시 값을 검사
+										if ($('#smsKey').val() == code) { // 사용자의 입력값과 sendSMS에서 받은 값이 일치하는 경우
+											alert('인증되었습니다');
+											frm.checkSMS.value = 'checked';
+										} else {
+											alert('인증번호가 틀립니다');
+										}
+									});
+								}
+							});
+						}
 					}
 				},
-				error: function(err){
+				error : function(err) {
 					console.log(err);
 				}
 			});
 		});
-		
-		// #sendSMS : 인증번호를 보내는 버튼
-		// #checkSMS : 인증 번호 확인 버튼
-		// #smsKey : 사용자의 검사할 입력값이 있는 input tag
-		$('#sendSMS').click(function(){ // 인증 번호 보내기
-			var tel = $('#tel').val(); // 인증번호를 보낼 사용자가 입력한 tel
-			$.ajax({
-				url:'sendSMS',
-				data:{
-					tel:tel
-				},
-				type:'post',
-				success:function(code){
-					alert('인증번호가 전송되었습니다');
-					$('#checkSMS').click(function(){ // 성공해서 sendSMS에서 값을 건네받은 경우에, 인증번호 버튼을 클릭 시 값을 검사
-						if($('#smsKey').val() == code){ // 사용자의 입력값과 sendSMS에서 받은 값이 일치하는 경우
-							alert('인증되었습니다');
-							frm.checkSMS.value = 'checked';
-						} else {
-							alert('인증번호가 틀립니다');
-						}
-					})
-				}
-			});
-		})
-		
-	})
-
+	});
 	function formCheck() {
 		if (frm.memberId.value == "") {
 			alert("아이디를 입력하세요.");
 			frm.memberId.focus();
 			return false;
 		}
-		if(frm.idCheck.value=='UnChecked'){
-			alert("중복체크를 하세요.");
+		if (frm.idCheck.value == 'UnChecked') {
+			alert("ID 중복체크를 하세요.");
 			return false;
 		}
-		
 		if (frm.memberPwd1.value == "") {
 			alert("비밀번호를 입력하세요.");
 			frm.memberPwd.focus();
 			return false;
 		}
-		
-		if (frm.memberPwd1.value != frm.memberPwd2.value ) {
+
+		if (frm.memberPwd1.value != frm.memberPwd2.value) {
 			alert("비밀번호를 재확인하세요.");
 			frm.memberPwd.focus();
 			return false;
 		}
-		
+		if (frm.memberName.value == "") {
+			alert("이름을 입력하세요.");
+			return false;
+		}
+		if (frm.email.value == "") {
+			alert("이메일을 입력하세요.");
+			return false;
+		}
+		if (frm.tel.value == "") {
+			alert("휴대폰번호를 입력하세요.");
+			return false;
+		}
+		if (frm.member_post.value == "") {
+			alert("주소를 입력하세요");
+			frm.smsKey.focus();
+			return false;
+		}
+		/* if (frm.checkEmail.value == "unChecked") {
+			alert("이메일을 인증 하세요");
+			frm.emailCode.focus();
+			return false;
+		}  */
 		if (frm.checkSMS.value == "unChecked") {
 			alert("문자 인증을 하세요");
 			frm.smsKey.focus();
 			return false;
-		}
-		
+		} 
 		alert("정상적으로 회원가입 되었습니다");
 		frm.submit();
 	}
-	
-
-	
 </script>
 
 <div  align="center">
@@ -199,14 +278,14 @@ function findAddr(){
 					<tr>
 						<th>이메일</th>
 						<td width="350">
- 						<input type="text" placeholder="ex) kim1@naver.com" id="email" value="">
- 						<input type="button" id="sendEmail" value="인증코드 전송"></input>
+ 						<input type="text" placeholder="ex) kim1@naver.com" id="email" name="email" value="">
+ 						<button type="button" id="sendEmail" value="unChecked">인증코드 전송</button>
  						</tr>
  						<tr>
  						<th></th>
  						<td width="350">
- 						<input type="text" placeholder="인증코드 입력" id="emailCode" value="">
- 						<button type="button" id="checkEmailConfirm" value="unChecked">인증코드 확인</button>
+ 						<input type="text" placeholder="인증코드를 입력하세요" id="emailCode" value="">
+ 						<button type="button" id="checkEmail" value="unChecked">인증코드 확인</button>
 						</td>
 					</tr>
 					
@@ -215,8 +294,8 @@ function findAddr(){
 					<tr>
 						<th width="150">전화번호</th>
 						<td width="350"><input type="text" id="tel"
-							name="tel">
-							<input type="button" id="sendSMS" value="인증번호 전송"></input>
+							name="tel" placeholder ="ex) 01029532154" >
+							<button type="button" id="sendSMS" value="unChecked">인증번호 전송</input>
 						</td>
 					</tr>
 					<tr>

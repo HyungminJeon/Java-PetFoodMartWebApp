@@ -32,7 +32,7 @@ public class AjaxSendEmail extends HttpServlet {
 		String host = "http://192.168.0.67/petMart/";
 		String from = "wjsgudals6@gmail.com";
 		String to = request.getParameter("email");
-		String subject = "Pet Mart 회원가입을 위한 이메일 확인 메일입니다.";
+		String subject = "Pet Mart 회원가입을 위한 코드 확인 메일입니다.";
 		String code = new SHA256().getSHA256(to);
 		String content = "다음 코드를 회원가입창에 입력해주세요.\r\n Code: " + code;
 

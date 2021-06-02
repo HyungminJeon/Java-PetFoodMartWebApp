@@ -10,12 +10,11 @@ import com.petMart.common.DAO;
 import com.petMart.member.service.MemberService;
 import com.petMart.member.vo.MemberVO;
 
-
-public class MemberServiceImpl extends DAO implements MemberService{
+public class MemberServiceImpl extends DAO implements MemberService {
 
 	PreparedStatement psmt;
 	ResultSet rs;
-	
+
 	@Override
 	public List<MemberVO> selectMemberList() {
 		return null;
@@ -25,6 +24,7 @@ public class MemberServiceImpl extends DAO implements MemberService{
 	public MemberVO selectMember() {
 		return null;
 	}
+
 	// 로그인 ID, PWD 체크 함수
 	public MemberVO loginCheck(MemberVO vo) {
 		String sql = "select * from member where id = ? and passwd = ?";
@@ -34,13 +34,13 @@ public class MemberServiceImpl extends DAO implements MemberService{
 			psmt.setString(1, vo.getId());
 			psmt.setString(2, vo.getPwd());
 			rs = psmt.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 				rvo = new MemberVO();
 				rvo.setId(rs.getString("id"));
 				rvo.setPwd(rs.getString("passwd"));
 				rvo.setName(rs.getString("name"));
 				rvo.setAddr(rs.getString("address"));
-			} 
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -48,8 +48,7 @@ public class MemberServiceImpl extends DAO implements MemberService{
 		}
 		return rvo;
 	}
-	
-	
+
 	// ID 중복 체크 함수
 	public boolean idCheck(String id) {
 		boolean exist = false;
@@ -58,8 +57,8 @@ public class MemberServiceImpl extends DAO implements MemberService{
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, id);
 			rs = psmt.executeQuery();
-			
-			if(rs.next()) {
+
+			if (rs.next()) {
 				exist = true;
 			}
 		} catch (SQLException e) {
@@ -67,7 +66,49 @@ public class MemberServiceImpl extends DAO implements MemberService{
 		} finally {
 			close();
 		}
-		
+
+		return exist;
+	}
+
+	// Email 중복 체크 함수
+	public boolean emailCheck(String email) {
+		boolean exist = false;
+		String sql = "select * from member where email = ?";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, email);
+			rs = psmt.executeQuery();
+
+			if (rs.next()) {
+				exist = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+
+		return exist;
+	}
+
+	// Email 중복 체크 함수
+	public boolean telCheck(String tel) {
+		boolean exist = false;
+		String sql = "select * from member where tel = ?";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, tel);
+			rs = psmt.executeQuery();
+
+			if (rs.next()) {
+				exist = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+
 		return exist;
 	}
 
@@ -86,7 +127,7 @@ public class MemberServiceImpl extends DAO implements MemberService{
 			psmt.setString(5, vo.getTel());
 			psmt.setString(6, vo.getEmail());
 			r = psmt.executeUpdate();
-			System.out.println(r+"건 입력됨");
+			System.out.println(r + "건 입력됨");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -103,36 +144,36 @@ public class MemberServiceImpl extends DAO implements MemberService{
 	@Override
 	public int deleteMember(MemberVO vo) {
 		String sql = "delete from member where id=? and passwd=?";
-		int r =0;
+		int r = 0;
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, vo.getId());
 			psmt.setString(2, vo.getPwd());
 			r = psmt.executeUpdate();
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close();
 		}
-		
+
 		return r;
 	}
-	
+
 	private void close() {
-		if(rs != null)
+		if (rs != null)
 			try {
 				rs.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-		if(psmt != null)
+		if (psmt != null)
 			try {
 				psmt.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-		if(conn != null)
+		if (conn != null)
 			try {
 				conn.close();
 			} catch (SQLException e) {
