@@ -1,6 +1,7 @@
 package com.petMart.product.vo;
 
 public class ProductVO {
+	private String userId;
 	private String itemCode;
 	private String itemName;
 	private String itemImage;
@@ -10,6 +11,13 @@ public class ProductVO {
 	private String sale;
 	private int salePrice;
 	
+	
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 	public String getItemCode() {
 		return itemCode;
 	}
