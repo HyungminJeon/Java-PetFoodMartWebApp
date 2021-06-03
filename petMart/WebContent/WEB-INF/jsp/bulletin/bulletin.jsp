@@ -20,6 +20,7 @@
 		
 		function bulletinDelete() {
 			deleteFrm.submit();
+			alert("정상적으로 삭제되었습니다.");
 		}
 		
 		// 클릭 시에 대댓글창을 보여주는 메서드
@@ -144,14 +145,13 @@
 						<c:if test ="${id ne bulletin.writer }">
 							<td colspan="7">${bulletin.title }</td>
 						</c:if>
-						
 					</tr>
 					<tr>
 						<th>내용</th>
 						<td colspan="7"><textarea rows="6" cols="90" name="content" id="content">${bulletin.content }</textarea></td>
 					</tr>
 				</table>
-			</form>
+			
 				<!--  대댓글 창 기능 구현 -->
 				<div align="left">
 					<h5>댓글</h5>
@@ -175,13 +175,14 @@
 					</c:if>
 				</div>
 				<div>
-					<button type="button" onclick="location.href='bulletinListPaging.do'">목록 보기</button>
 					<c:if test="${id == bulletin.writer }">
 						<input type="hidden" name="id" value="${bulletin.id }">
-						<button type="submit">수정</button>
-						<button type="button" onclick="bulletinDelete()">삭제</button>
+						<input type="submit" value="글 수정"></button>						
+						<button type="button" onclick="bulletinDelete()">글 삭제</button>
 					</c:if>
+					<button type="button" onclick="location.href='bulletinListPaging.do'">목록 보기</button>
 				</div>
+				</form>
 			<form id="deleteFrm" action="bulletinDelete.do" method="post">
 				<input type="hidden" name="id" value="${bulletin.id }">
 			</form>

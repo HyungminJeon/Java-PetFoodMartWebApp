@@ -33,11 +33,14 @@ import com.petMart.notice.web.NoticeList;
 import com.petMart.notice.web.NoticeListPaging;
 import com.petMart.notice.web.NoticeUpdate;
 import com.petMart.product.web.AddCart;
+import com.petMart.product.web.AfterDeleteGetCartCount;
 import com.petMart.product.web.CartList;
+import com.petMart.product.web.DeleteCart;
 import com.petMart.product.web.GetCartCount;
 import com.petMart.product.web.ProductList;
 import com.petMart.product.web.ProductListPaging;
 import com.petMart.product.web.SearchList;
+import com.petMart.product.web.AjaxDeleteCartList;
 
 
 public class FrontController extends HttpServlet{
@@ -47,7 +50,6 @@ public class FrontController extends HttpServlet{
 	@Override
 	public void init() throws ServletException {
 		// ex: map.put("/~.do", new ~~());
-		
 		// 시작 시 메인 페이지 호출, 메뉴 바 클릭 시 메인 페이지 호출
 		map.put("/homePage.do", new HomePage());
 		
@@ -64,6 +66,9 @@ public class FrontController extends HttpServlet{
 		// 장바구니
 		map.put("/productList.do", new ProductList());
 		map.put("/addCart.do", new AddCart());
+		//map.put("/deleteCart.do", new DeleteCart());
+		map.put("/getCartCount.do", new GetCartCount());
+		map.put("/afterDeleteCartCount.do", new AfterDeleteGetCartCount());
 		map.put("/cartList.do", new CartList());
 		map.put("/productListPaging.do", new ProductListPaging());
 		

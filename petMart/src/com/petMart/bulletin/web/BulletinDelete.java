@@ -23,7 +23,7 @@ public class BulletinDelete implements DbCommand {
 		int r = service.deleteBulletin(vo);
 		System.out.println(r+"건 삭제됨");
 
-		return "bulletinList.do";
+		return "bulletinListPaging.do";
 	}
 
 }

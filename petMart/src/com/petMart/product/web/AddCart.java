@@ -14,6 +14,9 @@ public class AddCart implements DbCommand {
 		// 클릭하면 카트 테이블에 한 건 추가( 회원id, 상품정보, 수량은 1 추가 )
 		// 그 정보를 찾아와서 세션에 띄워야함
 		
+		HttpSession session = request.getSession();
+		
+		
 		String id = request.getParameter("id");
 		String guestId = request.getParameter("guestId");
 		String itemCode = request.getParameter("itemCode");
@@ -29,6 +32,7 @@ public class AddCart implements DbCommand {
 			service.addCart(id, itemCode, qty);
 		}
 		
+		session.setAttribute("guestId", guestId);
 		
 		return "/getCartCount.do";
 		

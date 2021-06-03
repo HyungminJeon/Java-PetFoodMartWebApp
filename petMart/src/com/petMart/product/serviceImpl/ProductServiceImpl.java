@@ -99,7 +99,39 @@ public class ProductServiceImpl extends DAO implements ProductService {
 
 	@Override
 	public int deleteProduct(ProductVO vo) {
-		return 0;
+		sql= "delete from cart where item_code=? and user_id = ?";
+		int r = 0;
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, vo.getItemCode());
+			psmt.setString(2, vo.getUserId());
+			psmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		
+		return r;
+	}
+	
+	public int deleteGuestProduct(ProductVO vo) {
+		sql= "delete from guestCart where item_code=? and guest_id = ?";
+		int r = 0;
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, vo.getItemCode());
+			psmt.setString(2, vo.getUserId());
+			psmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		
+		return r;
 	}
 	
 	public List<ProductVO> searchProductList(String keyword){

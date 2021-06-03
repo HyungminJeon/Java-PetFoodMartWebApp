@@ -17,7 +17,7 @@ public class BulletinSelect implements DbCommand {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
 		// 한 건 조회
-		int id = Integer.parseInt(request.getParameter("id"));		
+		int id = Integer.parseInt(request.getParameter("id"));
 		BulletinVO vo = new BulletinVO();
 		vo.setId(id);
 		BulletinService service = new BulletinServiceImpl();
