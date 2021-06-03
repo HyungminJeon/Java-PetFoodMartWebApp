@@ -16,7 +16,7 @@
 				<div class="col mb-5">
 					<div class="card h-100">
                           <!-- Product image-->
-                          <img class="card-img-top" style="width:300px; height:300px;" src="upload/${vo.itemImage }" onerror="this.src='upload/no_image.jpg'" alt="..." />
+                          <img class="card-img-top" style="width:300px; height:300px;" src="upload/${vo.itemImage }" onerror="this.style.display='none';" alt="..." />
                           <!-- Sale badge-->
                           <c:if test="${vo.sale eq 'Y'}">
                           	<div class="badge bg-warning text-white position-absolute" style="top: 0.5rem; right: 0.5em">Sale</div>

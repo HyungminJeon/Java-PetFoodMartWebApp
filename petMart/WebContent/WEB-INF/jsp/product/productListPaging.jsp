@@ -5,6 +5,7 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-modal/2.2.5/js/bootstrap-modal.js"></script>
 
 <script>
 		function goPage(page){
@@ -35,8 +36,97 @@
 		
 		.pagination a:hover:not(.active) {background-color: #ddd;}
 	</style>
+	<script>
+		
+		function showInfo(itemCode){
+			
+			// 아래의 로직으로는 버튼을 누를 때마다 ajax 실행하여 받아온 값을 추가하므로, 제품 당 한번만 실행되도록 막을 필요가 있다
+			var check = '#'+itemCode+'_infoChecker'; // == $('#item00n_infoCheck')
+			if($(check).val() == 'false'){
+
+				// Review를 가져올 ajax
+				$.ajax({
+					url:'showReview',
+					type:'post',
+					data:{
+						itemCode:itemCode
+					},
+					dataType:'json',
+					success:function(Reviews){
+						var targetR = '#'+itemCode+'_infoBodyReviews'; // == $('#item00n_infoBodyReviews')
+						console.log(Reviews);
+						// 가져온 정보 출력
+						var table = document.createElement('table');
+						table.classList.add('table');
+						table.classList.add('table-bordered');
+						table.classList.add('table-hover');
+						
+						
+						for(var i = 0; i < Reviews.length; i++){
+							var tr = document.createElement('tr');
+							var tdDate = document.createElement('td');
+							tdDate.innerText = Reviews[i].regDate;
+							var tdWriter = document.createElement('td');
+							tdWriter.innerText = Reviews[i].writer;
+							var tdContent = document.createElement('td');
+							tdContent.innerText = Reviews[i].content;
+							var tdSatisfaction = document.createElement('td');
+							tdSatisfaction.innerText = Reviews[i].satisfaction;
+							tr.append(tdDate, tdWriter, tdContent, tdSatisfaction);
+							table.append(tr);
+						}
+						$(targetR).append(table);
+						
+					}
+				});	
+			
+				// Question를 가져올 ajax
+				$.ajax({
+					url:'showQuestion',
+					type:'post',
+					data:{
+						itemCode:itemCode
+					},
+					dataType:'json',
+					success:function(Questions){
+						var targetQ = '#'+itemCode+'_infoBodyQuestions'; // == $('#item00n_infoBodyQuestions')
+						// console.log(Questions);
+						var table = document.createElement('table');
+						table.classList.add('table');
+						table.classList.add('table-bordered');
+						table.classList.add('table-hover');
+						
+						
+						for(var i = 0; i < Questions.length; i++){
+							var tr = document.createElement('tr');
+							var tdDate = document.createElement('td');
+							tdDate.innerText = Questions[i].regDate;
+							var tdWriter = document.createElement('td');
+							tdWriter.innerText = Questions[i].writer;
+							var tdTitle = document.createElement('td');
+							tdTitle.innerText = Questions[i].title;
+							var tdContent = document.createElement('td');
+							tdContent.innerText = Questions[i].content;
+							
+							tr.append(tdDate, tdWriter, tdTitle, tdContent);
+							table.append(tr);
+						}
+						$(targetQ).append(table);
+						
+					}
+				});
+				
+				$(check).val('true');
+			
+		}
 
 
+			
+	}
+	</script>
+	
+	
+	
 <section class="py-5" style="align:center;">
 	<div class="container px-4 px-lg-5 mt-5">
 		<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
@@ -75,7 +165,45 @@
 						<!-- Product actions-->
 							<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
 								<div class="text-center">
-									<a class="btn btn-outline-dark mt-auto" id="addCnt" onclick="addCnt('${vo.itemCode }')">Add to cart</a>
+									<!-- Button trigger modal -->
+									<button type="button" class="btn btn-outline-dark mt-auto" data-bs-toggle="modal" data-bs-target="#${vo.itemCode }_info" onclick="showInfo('${vo.itemCode }')">Show info</button>
+									<input type="hidden" value="false" id="${vo.itemCode }_infoChecker">
+									<!-- Show info Modal -->
+									<div class="modal fade" id="${vo.itemCode }_info" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+									  <div class="modal-dialog modal-xl">
+									    <div class="modal-content">
+									      <div class="modal-header">
+									        <h4 class="modal-title" id="ModalLabel">${vo.itemName }</h4>
+									        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									      </div>
+									      <!-- modal body (detail Image) -->
+									      <div class="modal-body m-2" style="text-align:left;" id="${vo.itemCode }_infoBodyDetails">
+									      <h5>상세정보</h5>
+									      	<!-- <img src="upload/${vo.detailImage }" onerror="this.style.display='none';" /> -->
+									      	detailImage 영역 detailImage 영역 detailImage 영역 detailImage 영역 detailImage 영역 detailImage 영역 detailImage 영역 detailImage 영역 detailImage 영역 detailImage 영역 
+									      </div>
+									      <!-- modal body (reviews) -->
+									      <div class="modal-body m-2" style="text-align:left;" id="${vo.itemCode }_infoBodyReviews">
+									      <h5>상품평</h5>
+									      </div>
+									      <!-- modal body (questions) -->
+									      <div class="modal-body m-2" style="text-align:left;" id="${vo.itemCode }_infoBodyQuestions">
+									      <h5>문의사항</h5>
+									      </div>
+									      <!-- modal inner btns in footer-->
+									      <div class="modal-footer">
+									        <c:if test="${id != null }">
+									        	<button type="button" class="btn btn-outline-primary">상품평 남기기</button>
+									        	<button type="button" class="btn btn-outline-primary">문의사항 남기기</button>
+									        	<a class="btn btn-outline-danger" onclick="addCnt('${vo.itemCode }')">♥</a>
+									        </c:if>
+										        <a class="btn btn-warning btn-outline-dark" onclick="addCnt('${vo.itemCode }')">Add to cart</a>
+									      </div>
+									    </div>
+									  </div>
+									</div>
+									<!-- add to cart -->
+									<a class="btn btn-warning btn-outline-dark" onclick="addCnt('${vo.itemCode }')">Add to cart</a>
 								</div>
 							</div>						
 					</div>

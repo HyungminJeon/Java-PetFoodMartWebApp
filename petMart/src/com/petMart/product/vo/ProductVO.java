@@ -10,8 +10,15 @@ public class ProductVO {
 	private int likeIt;
 	private String sale;
 	private int salePrice;
+	private String detailImage;
 	
 	
+	public String getDetailImage() {
+		return detailImage;
+	}
+	public void setDetailImage(String detailImage) {
+		this.detailImage = detailImage;
+	}
 	public String getUserId() {
 		return userId;
 	}
