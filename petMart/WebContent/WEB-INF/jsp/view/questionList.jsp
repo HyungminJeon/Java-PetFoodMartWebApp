@@ -11,7 +11,11 @@
 </head>
 <body>
 	<h5>문의사항</h5>
-	<table class="table table-striped table-hover">
+	<c:if test="${empty questionList }">
+		<h4 style="text-align:center;"> 상품이 더 좋아지도록 질문을 남겨주세요 </h4>
+	</c:if>
+	<c:if test="${not empty questionList }">
+		<table class="table table-striped table-hover">
 		<tr>
 			<th>작성자</th> <th>제목</th> <th>내용</th> <th>작성일</th> 
 		</tr>
@@ -45,5 +49,7 @@
 			</tr>
 		</c:forEach>
 	</table>
+	</c:if>
+	
 </body>
 </html>

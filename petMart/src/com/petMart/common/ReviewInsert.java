@@ -32,7 +32,6 @@ import com.petMart.product.vo.ReviewVO;
 			int r = service.reviewInsert(vo);
 			System.out.println(r+"건 입력됨");
 			
-			
 		}
 	
 	

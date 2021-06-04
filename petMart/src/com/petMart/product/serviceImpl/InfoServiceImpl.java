@@ -42,14 +42,12 @@ public class InfoServiceImpl extends DAO{
 		} finally {
 			close();
 		}
-		
 		return list;
-		
 	}
 		
 	public int reviewInsert(ReviewVO vo) {
 		int r = 0;
-		sql = "insert into product_review values(review_id.nextval, ?, ?, sysdate, ?, ?)";
+		sql = "insert into product_review values(review_id_seq.nextval, ?, ?, sysdate, ?, ?)";
 		
 		try {
 			psmt = conn.prepareStatement(sql);
@@ -57,6 +55,27 @@ public class InfoServiceImpl extends DAO{
 			psmt.setString(2, vo.getContent());
 			psmt.setString(3, vo.getWriter());
 			psmt.setInt(4, vo.getSatisfaction());
+			r = psmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		
+		return r;	
+	}
+	
+	public int questionInsert(QuestionVO vo) {
+		int r = 0;
+		sql = "insert into product_question values(question_id_seq.nextval, ?, ?, ?, ?, sysdate, ?, 0, 'admin')";
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, vo.getItemCode());
+			psmt.setString(2, vo.getTitle());
+			psmt.setString(3, vo.getContent());
+			psmt.setString(4, vo.getWriter());
+			psmt.setString(5, vo.getIsOpen());
 			r = psmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

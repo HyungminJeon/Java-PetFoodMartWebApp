@@ -100,22 +100,57 @@
 		
 		// 리뷰 작성 submit
 		function reviewSubmit(itemCode, id){
-			var content = '#'+itemCode+"_questionTextArea";
-			var stars = '#'+itemCode+"_StarGroup";
+			var content = '#'+itemCode+"_reviewTextArea";
+			
+			var left = 'input[name="';
+			var center = itemCode+'_BtnRadioName'
+			var right = '"]:checked';
+			
+			var starval = document.querySelector(left+center+right).value;
+			
+			console.log(left+center+right);
+			console.log(starval);
 			content = $(content).val();
 			
-			console.log(stars);
+			
 			
 			$.ajax({
 				url:'reviewInsert',
+				type:'post',
 				data:{
 					itemCode:itemCode,
 					writer:id,
-					satisfaction:stars,
+					satisfaction:starval,
 					content:content
 				},
 				success:function(result){
-					console.log('정상 입력됨');
+					location.reload();
+				},
+				error:function(err){
+					console.log(err);
+				}
+			});
+		}
+		
+		// 문의사항 submit
+		function questionSubmit(itemCode, id){
+			var title = '#'+itemCode+"_questionTitleArea";
+			var content = '#'+itemCode+"_questionContentArea";
+			
+			content = $(content).val();
+			title = $(title).val();
+			
+			$.ajax({
+				url:'questionInsert',
+				type:'post',
+				data:{
+					itemCode:itemCode,
+					writer:id,
+					title:title,
+					content:content
+				},
+				success:function(result){
+					location.reload();
 				},
 				error:function(err){
 					console.log(err);
@@ -189,15 +224,15 @@
 									      <!-- modal inner btns in footer-->
 									      <div class="modal-footer">
 									        <c:if test="${id != null }">
-									        	<button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#questionModal">상품평 작성</button>
-									        	<button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#reviewModal">문의사항 남기기</button>
+									        	<button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#${vo.itemCode }_questionModal">문의사항 남기기</button>
+									        	<button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#${vo.itemCode }_reviewModal">상품평 작성</button>
 									        	<a class="btn btn-outline-danger" onclick="addCnt('${vo.itemCode }')">♥</a>
 									        </c:if>
 										        <a class="btn btn-warning btn-outline-dark" onclick="addCnt('${vo.itemCode }')">Add to cart</a>
 									      </div>
 									      
 									      <!-- 상품평 서브 모달 -->
-											<div class="modal fade" id="reviewModal" data-backdrop="static">
+											<div class="modal fade" id="${vo.itemCode }_reviewModal" data-backdrop="static">
 												<div class="modal-dialog modal-lg">
 											      <div class="modal-content">
 											        <div class="modal-header">
@@ -206,14 +241,23 @@
 											        </div>
 											        <div class="modal-body">
 											          <div class="mb-3">
-														  <textarea class="form-control" id="${vo.itemCode }_questionTextArea" rows="3"></textarea>
-														  <div id="${vo.itemCode }_StarGroup" class="btn-group me-2" role="group" aria-label="btnGroup">
-														    <button type="button" class="btn btn-warning" value="1">★</button>
-														    <button type="button" class="btn btn-warning" value="2">★★</button>
-														    <button type="button" class="btn btn-warning" value="3">★★★</button>
-														    <button type="button" class="btn btn-warning" value="4">★★★★</button>
-														    <button type="button" class="btn btn-warning" value="5">★★★★★</button>
-														  </div>
+														  <textarea class="form-control" id="${vo.itemCode }_reviewTextArea" rows="3"></textarea>
+														  <br>
+														  <p style="text-align:center;">얼마나 만족하셨나요?</p>
+														  <br>
+														  <div id="${vo.itemCode }_StarGroup" class="btn-group" role="group" aria-label="Basic radio toggle button group">
+															  <input type="radio" class="btn-check" name="${vo.itemCode }_BtnRadioName" id="${vo.itemCode }_BtnRadioId1" autocomplete="off" value="1">
+															  <label class="btn btn-warning" for="${vo.itemCode }_BtnRadioId1">★</label>
+															  <input type="radio" class="btn-check" name="${vo.itemCode }_BtnRadioName" id="${vo.itemCode }_BtnRadioId2" autocomplete="off" value="2">
+															  <label class="btn btn-warning" for="${vo.itemCode }_BtnRadioId2">★★</label>
+															  <input type="radio" class="btn-check" name="${vo.itemCode }_BtnRadioName" id="${vo.itemCode }_BtnRadioId3" autocomplete="off" value="3">
+															  <label class="btn btn-warning" for="${vo.itemCode }_BtnRadioId3">★★★</label>
+															  <input type="radio" class="btn-check" name="${vo.itemCode }_BtnRadioName" id="${vo.itemCode }_BtnRadioId4" autocomplete="off" value="4">
+															  <label class="btn btn-warning" for="${vo.itemCode }_BtnRadioId4">★★★★</label>
+															  <input type="radio" class="btn-check" name="${vo.itemCode }_BtnRadioName" id="${vo.itemCode }_BtnRadioId5" autocomplete="off" value="5" checked>
+															  <label class="btn btn-warning" for="${vo.itemCode }_BtnRadioId5">★★★★★</label>
+															</div>
+															
 														</div>
 											        </div>
 											        <div class="modal-footer">
@@ -224,8 +268,7 @@
 											</div>
 											
 											<!--  문의사항 서브 모달 -->
-											
-											<div class="modal fade" id="questionModal" data-backdrop="static">
+											<div class="modal fade" id="${vo.itemCode }_questionModal" data-backdrop="static">
 												<div class="modal-dialog modal-lg">
 											      <div class="modal-content">
 											        <div class="modal-header">
@@ -233,9 +276,16 @@
 											          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 											        </div>
 											        <div class="modal-body">
-											          상품평
+											        	<h4 style="text-align:left;">제목</h4>
+											        	<textarea class="form-control" id="${vo.itemCode }_questionTitleArea" rows="1"></textarea>
+											        	<br>
+											        	<h4 style="text-align:left;">내용</h4>
+											        	<textarea class="form-control" id="${vo.itemCode }_questionContentArea" rows="3"></textarea>
 											        </div>
 											        <div class="modal-footer">
+											        	<input class="form-check-input" type="checkbox" value="false" id="${vo.itemCode }_isOpen">
+														  <label class="form-check-label" for="${vo.itemCode }_isOpen"> 비밀글 설정 </label>
+											        	<button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal" onclick="questionSubmit('${vo.itemCode }','${id }')">작성</button>
 											        </div>
 											      </div>
 											    </div>
