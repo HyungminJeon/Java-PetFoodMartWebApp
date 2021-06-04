@@ -162,16 +162,16 @@
 								</c:if>
 								${vo.writer }
 								${vo.content }
-								<!-- 버튼을 만들어보니 생각보다 불편해서, 버튼 없이 엔터만 치면 함수가 호출되도록 onkeypress을 사용. event.keyCode == 13이 enter이다. -->
+								<!-- 버튼을 만들어보니 생각보다 불편해서, 버튼 없이 엔터만 치면 함수가 호출되도록 onkeypress을 사용. Enter이면서, shift가 안 눌렸을 경우에 작성. -->
 								<c:if test="${id != null }">
-									<textarea style="display:none;" rows="1" cols="70" name="addCommentsArea" id="${vo.cid }" onkeypress="javascript:if(event.keyCode==13)addComment(${vo.cid }, ${vo.bid }, ${vo.group_id }, '${id }', ${vo.depth })"></textarea>
+									<textarea style="display:none;" rows="1" cols="70" name="addCommentsArea" id="${vo.cid }" onkeypress="javascript:if(event.keyCode==13&&!event.shiftKey)addComment(${vo.cid }, ${vo.bid }, ${vo.group_id }, '${id }', ${vo.depth })"></textarea>
 								</c:if>
 							</div>
 						</c:forEach>
 					<!-- 회원인 경우에만 댓글을 쓰도록 한다 -->
 					<c:if test="${id != null }">
 						<h6>새 댓글 쓰기</h6>
-						<textarea rows="2" cols="75" id="newCommentsArea" onkeypress="javascript:if(event.keyCode==13)newComment(${bulletin.id }, '${id }')"></textarea>
+						<textarea rows="2" cols="75" id="newCommentsArea" onkeypress="javascript:if(event.keyCode==13&&!event.shiftKey)newComment(${bulletin.id }, '${id }')"></textarea>
 					</c:if>
 				</div>
 				<div>

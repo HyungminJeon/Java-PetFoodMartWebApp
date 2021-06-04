@@ -42,6 +42,7 @@ public class ProductServiceImpl extends DAO implements ProductService {
 				vo.setPrice(rs.getInt("price"));
 				vo.setSale(rs.getString("sale"));
 				vo.setSalePrice(rs.getInt("sale_price"));
+				vo.setDetailImage(rs.getString("detail_image"));
 				list.add(vo);
 			}
 		} catch (SQLException e) {
@@ -72,6 +73,7 @@ public class ProductServiceImpl extends DAO implements ProductService {
 				vo.setPrice(rs.getInt("price"));
 				vo.setSale(rs.getString("sale"));
 				vo.setSalePrice(rs.getInt("sale_price"));
+				vo.setDetailImage(rs.getString("detail_image"));
 				list.add(vo);
 			}
 		} catch (SQLException e) {
@@ -151,6 +153,7 @@ public class ProductServiceImpl extends DAO implements ProductService {
 				vo.setSalePrice(rs.getInt("sale_price"));
 				vo.setItemCode(rs.getString("item_code"));
 				vo.setItemName(rs.getString("item_name"));
+				vo.setDetailImage(rs.getString("detail_image"));
 				list.add(vo);
 			}
 		} catch (SQLException e) {
@@ -179,6 +182,7 @@ public class ProductServiceImpl extends DAO implements ProductService {
 				vo.setSalePrice(rs.getInt("sale_price"));
 				vo.setItemCode(rs.getString("item_code"));
 				vo.setItemName(rs.getString("item_name"));
+				vo.setDetailImage(rs.getString("detail_image"));
 				list.add(vo);
 			}
 		} catch (SQLException e) {

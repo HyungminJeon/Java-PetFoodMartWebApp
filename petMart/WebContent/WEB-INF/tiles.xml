@@ -5,6 +5,17 @@
 <!--  "/WEB-INF/jsp/layout/template.jsp"  = 사용자가 접근하지 못하도록 web-inf 하위폴더에 저장  > -->
 <tiles-definitions>
 
+	<!-- no tiles -->
+	<definition name="view" template="/WEB-INF/jsp/view/view.jsp">
+		<put-attribute name="title" value="Welcome to Home!!" />
+        <put-attribute name="body" value=""/>
+    </definition>
+
+	<definition name="WILDCARD:view/ajax/*" extends="view">
+		<put-attribute name="body" value="/WEB-INF/jsp/view/{1}.jsp"></put-attribute>
+    </definition>
+
+	<!-- tiles -->
 	<definition name="home" template="/WEB-INF/jsp/layout/template.jsp">
 		<put-attribute name="title" value="Welcome to Home!!" />
 		<put-attribute name="menu" value="/WEB-INF/jsp/layout/menu.jsp" />
@@ -16,4 +27,5 @@
 	<definition name="WILDCARD:*/*" extends="home">
 		<put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}.jsp" />
 	</definition>
+	
 </tiles-definitions>

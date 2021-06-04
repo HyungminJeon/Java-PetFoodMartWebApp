@@ -6,6 +6,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-modal/2.2.5/js/bootstrap-modal.js"></script>
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 
 <script>
 		function goPage(page){
@@ -13,6 +14,7 @@
 		}
 	</script>
 	<style>
+	
 		.pagination {
 		  display: inline-block;
 		}
@@ -35,94 +37,92 @@
 		}
 		
 		.pagination a:hover:not(.active) {background-color: #ddd;}
+		
 	</style>
 	<script>
 		
 		function showInfo(itemCode){
 			
-			// 아래의 로직으로는 버튼을 누를 때마다 ajax 실행하여 받아온 값을 추가하므로, 제품 당 한번만 실행되도록 막을 필요가 있다
-			var check = '#'+itemCode+'_infoChecker'; // == $('#item00n_infoCheck')
+			// 아래의 로직으로는 버튼을 누를 때마다 ajax 실행하여 받아온 값을 추가하므로, 제품 당 한번만 실행하여 추가하도록 막을 필요가 있었다
+			var check = '#'+itemCode+'_infoChecker'; // == $('#item00n_infoCheck') == 히든 값. 기본값은 false 
 			if($(check).val() == 'false'){
 
 				// Review를 가져올 ajax
 				$.ajax({
-					url:'showReview',
+					url:'showReview.do',
 					type:'post',
 					data:{
 						itemCode:itemCode
 					},
-					dataType:'json',
 					success:function(Reviews){
 						var targetR = '#'+itemCode+'_infoBodyReviews'; // == $('#item00n_infoBodyReviews')
-						console.log(Reviews);
-						// 가져온 정보 출력
-						var table = document.createElement('table');
-						table.classList.add('table');
-						table.classList.add('table-bordered');
-						table.classList.add('table-hover');
-						
-						
-						for(var i = 0; i < Reviews.length; i++){
-							var tr = document.createElement('tr');
-							var tdDate = document.createElement('td');
-							tdDate.innerText = Reviews[i].regDate;
-							var tdWriter = document.createElement('td');
-							tdWriter.innerText = Reviews[i].writer;
-							var tdContent = document.createElement('td');
-							tdContent.innerText = Reviews[i].content;
-							var tdSatisfaction = document.createElement('td');
-							tdSatisfaction.innerText = Reviews[i].satisfaction;
-							tr.append(tdDate, tdWriter, tdContent, tdSatisfaction);
-							table.append(tr);
-						}
-						$(targetR).append(table);
-						
+						$(targetR).html(Reviews);
+					},
+					error:function(err){
+						console.log(err);
 					}
+
 				});	
 			
 				// Question를 가져올 ajax
 				$.ajax({
-					url:'showQuestion',
+					url:'showQuestion.do',
 					type:'post',
 					data:{
 						itemCode:itemCode
 					},
-					dataType:'json',
 					success:function(Questions){
 						var targetQ = '#'+itemCode+'_infoBodyQuestions'; // == $('#item00n_infoBodyQuestions')
-						// console.log(Questions);
-						var table = document.createElement('table');
-						table.classList.add('table');
-						table.classList.add('table-bordered');
-						table.classList.add('table-hover');
-						
-						
-						for(var i = 0; i < Questions.length; i++){
-							var tr = document.createElement('tr');
-							var tdDate = document.createElement('td');
-							tdDate.innerText = Questions[i].regDate;
-							var tdWriter = document.createElement('td');
-							tdWriter.innerText = Questions[i].writer;
-							var tdTitle = document.createElement('td');
-							tdTitle.innerText = Questions[i].title;
-							var tdContent = document.createElement('td');
-							tdContent.innerText = Questions[i].content;
-							
-							tr.append(tdDate, tdWriter, tdTitle, tdContent);
-							table.append(tr);
-						}
-						$(targetQ).append(table);
-						
+						$(targetQ).html(Questions);
+					},
+					error:function(err){
+						console.log(err);
 					}
 				});
 				
 				$(check).val('true');
+				
+				/*
+				$(document).ready(function(){
+					var group = '#'+itemCode+'_StarGroup';
+					$(Group).click(function(){
+					    var allBtns = $(group).find('button');
+					    allBtns.each(function(index, btn){
+					        console.log((btn).val());
+					    })
+					})
+				});
+				*/
+			
+			}
 			
 		}
-
-
+		
+		// 리뷰 작성 submit
+		function reviewSubmit(itemCode, id){
+			var content = '#'+itemCode+"_questionTextArea";
+			var stars = '#'+itemCode+"_StarGroup";
+			content = $(content).val();
 			
-	}
+			console.log(stars);
+			
+			$.ajax({
+				url:'reviewInsert',
+				data:{
+					itemCode:itemCode,
+					writer:id,
+					satisfaction:stars,
+					content:content
+				},
+				success:function(result){
+					console.log('정상 입력됨');
+				},
+				error:function(err){
+					console.log(err);
+				}
+			});
+		}
+		
 	</script>
 	
 	
@@ -177,28 +177,70 @@
 									        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 									      </div>
 									      <!-- modal body (detail Image) -->
-									      <div class="modal-body m-2" style="text-align:left;" id="${vo.itemCode }_infoBodyDetails">
-									      <h5>상세정보</h5>
-									      	<!-- <img src="upload/${vo.detailImage }" onerror="this.style.display='none';" /> -->
-									      	detailImage 영역 detailImage 영역 detailImage 영역 detailImage 영역 detailImage 영역 detailImage 영역 detailImage 영역 detailImage 영역 detailImage 영역 detailImage 영역 
+									      <div class="modal-body m-2" id="${vo.itemCode }_infoBodyDetails">
+									      	<img src="image/${vo.detailImage }" onerror="this.style.display='none';" class="center"/> 
 									      </div>
 									      <!-- modal body (reviews) -->
 									      <div class="modal-body m-2" style="text-align:left;" id="${vo.itemCode }_infoBodyReviews">
-									      <h5>상품평</h5>
 									      </div>
 									      <!-- modal body (questions) -->
 									      <div class="modal-body m-2" style="text-align:left;" id="${vo.itemCode }_infoBodyQuestions">
-									      <h5>문의사항</h5>
 									      </div>
 									      <!-- modal inner btns in footer-->
 									      <div class="modal-footer">
 									        <c:if test="${id != null }">
-									        	<button type="button" class="btn btn-outline-primary">상품평 남기기</button>
-									        	<button type="button" class="btn btn-outline-primary">문의사항 남기기</button>
+									        	<button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#questionModal">상품평 작성</button>
+									        	<button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#reviewModal">문의사항 남기기</button>
 									        	<a class="btn btn-outline-danger" onclick="addCnt('${vo.itemCode }')">♥</a>
 									        </c:if>
 										        <a class="btn btn-warning btn-outline-dark" onclick="addCnt('${vo.itemCode }')">Add to cart</a>
 									      </div>
+									      
+									      <!-- 상품평 서브 모달 -->
+											<div class="modal fade" id="reviewModal" data-backdrop="static">
+												<div class="modal-dialog modal-lg">
+											      <div class="modal-content">
+											        <div class="modal-header">
+											          <h4 class="modal-title">상품평 작성</h4>
+											          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+											        </div>
+											        <div class="modal-body">
+											          <div class="mb-3">
+														  <textarea class="form-control" id="${vo.itemCode }_questionTextArea" rows="3"></textarea>
+														  <div id="${vo.itemCode }_StarGroup" class="btn-group me-2" role="group" aria-label="btnGroup">
+														    <button type="button" class="btn btn-warning" value="1">★</button>
+														    <button type="button" class="btn btn-warning" value="2">★★</button>
+														    <button type="button" class="btn btn-warning" value="3">★★★</button>
+														    <button type="button" class="btn btn-warning" value="4">★★★★</button>
+														    <button type="button" class="btn btn-warning" value="5">★★★★★</button>
+														  </div>
+														</div>
+											        </div>
+											        <div class="modal-footer">
+														  <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal" onclick="reviewSubmit('${vo.itemCode }','${id }')">작성</button>
+											        </div>
+											      </div>
+											    </div>
+											</div>
+											
+											<!--  문의사항 서브 모달 -->
+											
+											<div class="modal fade" id="questionModal" data-backdrop="static">
+												<div class="modal-dialog modal-lg">
+											      <div class="modal-content">
+											        <div class="modal-header">
+											          <h4 class="modal-title">문의사항 작성</h4>
+											          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+											        </div>
+											        <div class="modal-body">
+											          상품평
+											        </div>
+											        <div class="modal-footer">
+											        </div>
+											      </div>
+											    </div>
+											</div>
+											
 									    </div>
 									  </div>
 									</div>

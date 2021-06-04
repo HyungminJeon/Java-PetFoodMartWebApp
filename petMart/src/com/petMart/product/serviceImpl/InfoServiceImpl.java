@@ -26,7 +26,7 @@ public class InfoServiceImpl extends DAO{
 			rs = psmt.executeQuery();
 			while(rs.next()) {
 				QuestionVO vo = new QuestionVO();
-				vo.setQuestinId(rs.getInt("question_id"));
+				vo.setQuestionId(rs.getInt("question_id"));
 				vo.setItemCode(rs.getString("item_code"));
 				vo.setTitle(rs.getString("title"));
 				vo.setContent(rs.getString("content"));
@@ -34,6 +34,7 @@ public class InfoServiceImpl extends DAO{
 				vo.setRegDate(rs.getDate("reg_date"));
 				vo.setIsOpen(rs.getString("is_open"));
 				vo.setDepth(rs.getInt("depth"));
+				vo.setCanRead(rs.getString("canread"));
 				list.add(vo);
 			}
 		} catch (SQLException e) {
@@ -43,7 +44,29 @@ public class InfoServiceImpl extends DAO{
 		}
 		
 		return list;
+		
 	}
+		
+	public int reviewInsert(ReviewVO vo) {
+		int r = 0;
+		sql = "insert into product_review values(review_id.nextval, ?, ?, sysdate, ?, ?)";
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, vo.getItemCode());
+			psmt.setString(2, vo.getContent());
+			psmt.setString(3, vo.getWriter());
+			psmt.setInt(4, vo.getSatisfaction());
+			r = psmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		
+		return r;	
+	}
+		
 	
 	public List<ReviewVO> selectReviewList(String itemCode) {
 		sql = "select * from product_review where item_code = ? order by review_id";

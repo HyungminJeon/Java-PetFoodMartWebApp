@@ -3,7 +3,7 @@ package com.petMart.product.vo;
 import java.util.Date;
 
 public class QuestionVO {
-	private int questinId;
+	private int questionId;
 	private String itemCode;
 	private String title;
 	private String content;
@@ -11,13 +11,20 @@ public class QuestionVO {
 	private String isOpen;
 	private int depth;
 	private Date regDate;
+	private String canRead;
 	
 	
-	public int getQuestinId() {
-		return questinId;
+	public String getCanRead() {
+		return canRead;
 	}
-	public void setQuestinId(int questinId) {
-		this.questinId = questinId;
+	public void setCanRead(String canRead) {
+		this.canRead = canRead;
+	}
+	public int getQuestionId() {
+		return questionId;
+	}
+	public void setQuestionId(int questionId) {
+		this.questionId = questionId;
 	}
 	public String getItemCode() {
 		return itemCode;

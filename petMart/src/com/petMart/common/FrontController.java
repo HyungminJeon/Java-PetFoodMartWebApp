@@ -39,6 +39,8 @@ import com.petMart.product.web.GetCartCount;
 import com.petMart.product.web.ProductList;
 import com.petMart.product.web.ProductListPaging;
 import com.petMart.product.web.SearchList;
+import com.petMart.product.web.ShowQuestion;
+import com.petMart.product.web.ShowReview;
 import com.petMart.purchase.web.AfterPurchaseCartCount;
 import com.petMart.purchase.web.PurchaseList;
 import com.petMart.product.web.AjaxDeleteCartList;
@@ -72,6 +74,10 @@ public class FrontController extends HttpServlet{
 		map.put("/cartList.do", new CartList());
 		map.put("/productListPaging.do", new ProductListPaging());
 		
+		// 상품 상세보기
+		map.put("/showReview.do", new ShowReview());
+		map.put("/showQuestion.do", new ShowQuestion());
+		
 		// 메뉴 바
 		map.put("/searchList.do", new SearchList());
 		map.put("/getCartCount.do", new GetCartCount());
@@ -98,6 +104,8 @@ public class FrontController extends HttpServlet{
 		//결제
 		map.put("/purchaseList.do", new PurchaseList());
 		//map.put("/afterPurchaseCartCount.do", new AfterPurchaseCartCount());
+		
+		
 	}
 
 	@Override
