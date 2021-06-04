@@ -20,10 +20,6 @@ public class AjaxDeleteCartList extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		/*
-		 * HttpSession session = req.getSession(); String id = (String)
-		 * session.getAttribute("id");
-		 */
 		String id = req.getParameter("id");
 		String guestId = null;
 		

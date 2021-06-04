@@ -35,11 +35,12 @@ import com.petMart.notice.web.NoticeUpdate;
 import com.petMart.product.web.AddCart;
 import com.petMart.product.web.AfterDeleteGetCartCount;
 import com.petMart.product.web.CartList;
-import com.petMart.product.web.DeleteCart;
 import com.petMart.product.web.GetCartCount;
 import com.petMart.product.web.ProductList;
 import com.petMart.product.web.ProductListPaging;
 import com.petMart.product.web.SearchList;
+import com.petMart.purchase.web.AfterPurchaseCartCount;
+import com.petMart.purchase.web.PurchaseList;
 import com.petMart.product.web.AjaxDeleteCartList;
 
 
@@ -66,7 +67,6 @@ public class FrontController extends HttpServlet{
 		// 장바구니
 		map.put("/productList.do", new ProductList());
 		map.put("/addCart.do", new AddCart());
-		//map.put("/deleteCart.do", new DeleteCart());
 		map.put("/getCartCount.do", new GetCartCount());
 		map.put("/afterDeleteCartCount.do", new AfterDeleteGetCartCount());
 		map.put("/cartList.do", new CartList());
@@ -94,6 +94,10 @@ public class FrontController extends HttpServlet{
 		map.put("/noticeInsertForm.do", new NoticeInsertForm());
 		map.put("/noticeForm.do", new NoticeInsertForm());
 		map.put("/noticeDelete.do", new NoticeDelete());
+		
+		//결제
+		map.put("/purchaseList.do", new PurchaseList());
+		//map.put("/afterPurchaseCartCount.do", new AfterPurchaseCartCount());
 	}
 
 	@Override

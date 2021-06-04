@@ -9,7 +9,6 @@
 </script>
 
 <script>
-
 $(function() {
 		$('#sendEmail').click(function() {
 

@@ -42,8 +42,8 @@ function formCheck() {
 			</div>
 			<div>
 				<button type="button" onclick="formCheck()">로그인</button>
-				
 				<button type="button" onclick="location.href='homePage.do'">홈</button>
+				<button type="button" onclick="location.href='memberJoinForm.do'">회원가입</button>
 			</div>
 		</form>
 	</div>
