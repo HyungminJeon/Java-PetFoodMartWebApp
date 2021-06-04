@@ -103,7 +103,7 @@ public class FrontController extends HttpServlet{
 		
 		//결제
 		map.put("/purchaseList.do", new PurchaseList());
-		//map.put("/afterPurchaseCartCount.do", new AfterPurchaseCartCount());
+		map.put("/afterPurchaseCartCount.do", new AfterPurchaseCartCount());
 		
 		
 	}

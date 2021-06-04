@@ -19,11 +19,43 @@ public class PurchaseServiceImpl extends DAO implements PurchaseService {
 	ResultSet rs;
 	String sql;
 
+	@Override
+	public PurchaseVO purchaseSelect(PurchaseVO vo) {
+		String sql = "SELECT  m.id, p.item_code, p.item_name, p.price, p.sale, p.sale_price, c.item_qty\r\n"
+				+ "FROM member m JOIN cart c\r\n"
+				+ "ON (m.id = c.user_id)\r\n"
+				+ "JOIN product p\r\n"
+				+ "ON (p.item_code = c.item_code)\r\n"
+				+ "where m.id= ? and p.item_code=?";
+		
+		PurchaseVO vo1 = new PurchaseVO();
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, vo.getUserId());
+			psmt.setString(2, vo.getItemCode());
+			rs = psmt.executeQuery();
+			if(rs.next()) {
+				
+				vo1.setUserId(rs.getString("id"));
+				vo1.setItemCode(rs.getString("item_code"));
+				vo1.setItemName(rs.getString("item_name"));
+				vo1.setPrice(rs.getInt("price"));
+				vo1.setSale(rs.getString("sale"));
+				vo1.setSalePrice(rs.getInt("sale_price"));
+				vo1.setItemQty(rs.getInt("item_qty"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return vo1;
+	}
 
 
 	@Override
 	public int insertPurchase(PurchaseVO vo) {
-				String sql = "insert into purchase values(?, ?, ?, ?, ?,?,?)";
+				String sql = "insert into purchase values(?,?,?,?,?,?,?)";
 				int r = 0;
 				try {
 					psmt = conn.prepareStatement(sql);
@@ -69,25 +101,32 @@ public class PurchaseServiceImpl extends DAO implements PurchaseService {
 		return list;
 	}
 	
-
-	
-
-	// 회원 cart 정보 추가
-	public void addCart(String id, String item, int qty) {
-		sql = "insert into cart values(?,?,?)";
+	public List<PurchaseVO> purchaseList(String id) {
+		sql = "select * from purchase where id=?";
+		List<PurchaseVO> list = new ArrayList<>();
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, id);
-			psmt.setString(2, item);
-			psmt.setInt(3, qty);
-			int r = psmt.executeUpdate();
-			System.out.println(r+"건 회원 장바구니에 입력");
+			rs = psmt.executeQuery();
+			while(rs.next()) {
+				PurchaseVO vo = new PurchaseVO();
+				vo.setUserId(rs.getString("id"));
+				vo.setItemCode(rs.getString("item_code"));
+				vo.setItemQty(rs.getInt("item_count"));
+				vo.setItemName(rs.getString("item_name"));
+				vo.setPrice(rs.getInt("price"));
+				vo.setSalePrice(rs.getInt("sale_price"));
+				vo.setSale(rs.getString("sale"));
+				list.add(vo);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close();
 		}
+		return list;
 	}
+
 	
 	public int deleteCart(PurchaseVO vo) {
 		sql= "delete from cart where item_code=? and user_id = ?";
@@ -125,73 +164,6 @@ public class PurchaseServiceImpl extends DAO implements PurchaseService {
 		return rCnt;
 	}
 	
-	
-	
-	public List<PurchaseVO> purchaseList(String id) {
-		sql = "select * from purchase where id=?";
-		List<PurchaseVO> list = new ArrayList<>();
-		try {
-			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, id);
-			rs = psmt.executeQuery();
-			while(rs.next()) {
-				PurchaseVO vo = new PurchaseVO();
-				vo.setUserId(rs.getString("id"));
-				vo.setItemCode(rs.getString("item_code"));
-				vo.setItemQty(rs.getInt("itme_qty"));
-				vo.setItemName(rs.getString("item_name"));
-				vo.setPrice(rs.getInt("price"));
-				vo.setSalePrice(rs.getInt("sale_price"));
-				vo.setSale(rs.getString("sale"));
-				list.add(vo);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close();
-		}
-		return list;
-	}
-
-
-	@Override
-	public PurchaseVO purchaseSelect(PurchaseVO vo) {
-		String sql = "SELECT  m.id, p.item_code, p.item_name, p.price, p.sale, p.sale_price, c.item_qty\r\n"
-				+ "FROM member m JOIN cart c\r\n"
-				+ "ON (m.id = c.user_id)\r\n"
-				+ "JOIN product p\r\n"
-				+ "ON (p.item_code = c.item_code)\r\n"
-				+ "where m.id= ? and p.item_code=?";
-		
-		PurchaseVO vo1 = new PurchaseVO();
-		try {
-			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, vo.getUserId());
-			psmt.setString(1, vo.getItemCode());
-			rs = psmt.executeQuery();
-			if(rs.next()) {
-				
-				vo.setUserId(rs.getString("id"));
-				vo.setItemCode(rs.getString("item_code"));
-				vo.setItemName(rs.getString("item_name"));
-				vo.setPrice(rs.getInt("price"));
-				vo.setSale(rs.getString("sale"));
-				vo.setSalePrice(rs.getInt("sale_price"));
-				vo.setItemQty(rs.getInt("item_qty"));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close();
-		}
-		return vo1;
-	}
-
-
-
-
-
-
 
 
 	@Override

@@ -33,28 +33,23 @@
 			
 			<table class="table table-hover">
 			<tr>
-				<th>이미지</th>
 				<th>상품명</th>
-				<th>설명</th>
 				<th>가격</th>
 				<th>세일가</th>
 				<th>수량</th>
 			</tr>
 			
-			<c:if test="${empty list}">
+			<c:if test="${empty purchaseList}">
 			<tr>
-			<th colspan="7">장바구니가 비었습니다.</th>
+			<th colspan="7">결제내역이 없습니다.</th>
 			</tr>
 			</c:if>
 			
-			<c:if test="${!empty list}">
+			<c:if test="${!empty purchaseList}">
 				<c:set var="sum" value="0"></c:set>
-				<c:forEach items="${userCartList }" var="vo">
+				<c:forEach items="${purchaseList }" var="vo">
 					<tr>
-						<td><input type="hidden" id="id" value="${vo.userId }"></td>
-						<td><img class="card-img-top" style="width:100px; height:80px;" src="upload/${vo.itemImage }" onerror="this.style.display='none';" /></td>
 						<td>${vo.itemName }</td>
-						<td>${vo.itemDesc }</td>
 						<td>${vo.price }</td>
 						<c:if test="${vo.sale eq 'Y'}">
 							<td>${vo.salePrice }</td>

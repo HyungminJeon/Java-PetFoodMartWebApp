@@ -23,13 +23,11 @@ public class PurchaseList implements DbCommand {
 		
 		PurchaseServiceImpl service = new PurchaseServiceImpl();
 		
-		//장바구니 삭제시 장바구니를 게스트와 유저로 구별하기 위해 새로 만든다
 		List<PurchaseVO> list =null;
 		
+		list = service.purchaseList(id);
 		
-			list = service.purchaseList(id);
-		
-		request.setAttribute("userCartList", list);
+		request.setAttribute("purchaseList", list);
 		request.setAttribute("id", id);
 		
 		
