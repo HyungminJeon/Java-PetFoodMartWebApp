@@ -23,6 +23,8 @@ public class QuestionInsert extends HttpServlet {
 		String content = req.getParameter("content");
 		String isOpen = req.getParameter("isOpen");
 		
+		
+		
 		QuestionVO vo = new QuestionVO();
 		vo.setContent(content);
 		vo.setItemCode(itemCode);
