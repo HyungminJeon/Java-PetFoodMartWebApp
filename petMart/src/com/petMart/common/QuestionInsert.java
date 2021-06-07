@@ -9,27 +9,29 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.petMart.product.serviceImpl.InfoServiceImpl;
-import com.petMart.product.vo.ReviewVO;
+import com.petMart.product.vo.QuestionVO;
 
-@WebServlet("/reviewInsert")
-public class ReviewInsert extends HttpServlet {
+@WebServlet("/questionInsert")
+public class QuestionInsert extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		String itemCode = req.getParameter("itemCode");
-		String content = req.getParameter("content");
 		String writer = req.getParameter("writer");
-		int satisfaction = Integer.parseInt(req.getParameter("satisfaction")); 
+		String title = req.getParameter("title");
+		String content = req.getParameter("content");
+		String isOpen = req.getParameter("isOpen");
 		
-		ReviewVO vo = new ReviewVO();
+		QuestionVO vo = new QuestionVO();
 		vo.setContent(content);
 		vo.setItemCode(itemCode);
-		vo.setSatisfaction(satisfaction);
+		vo.setTitle(title);
 		vo.setWriter(writer);
+		vo.setIsOpen(isOpen);
 		
 		InfoServiceImpl service = new InfoServiceImpl();
-		int r = service.reviewInsert(vo);
+		int r = service.questionInsert(vo);
 		System.out.println(r+"건 입력됨");
 		
 	}

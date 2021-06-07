@@ -103,7 +103,7 @@
 			var content = '#'+itemCode+"_reviewTextArea";
 			
 			var left = 'input[name="';
-			var center = itemCode+'_BtnRadioName'
+			var center = itemCode+'_BtnRadioName';
 			var right = '"]:checked';
 			
 			var starval = document.querySelector(left+center+right).value;
@@ -136,10 +136,18 @@
 		function questionSubmit(itemCode, id){
 			var title = '#'+itemCode+"_questionTitleArea";
 			var content = '#'+itemCode+"_questionContentArea";
+			var check = '#'+itemCode+"_isOpen";
 			
 			content = $(content).val();
 			title = $(title).val();
 			
+			if($(check).is(":checked")){
+				check = 'N';
+			} else{
+				check = 'Y';
+			}
+			
+
 			$.ajax({
 				url:'questionInsert',
 				type:'post',
@@ -147,7 +155,8 @@
 					itemCode:itemCode,
 					writer:id,
 					title:title,
-					content:content
+					content:content,
+					isOpen:check
 				},
 				success:function(result){
 					location.reload();
@@ -283,7 +292,7 @@
 											        	<textarea class="form-control" id="${vo.itemCode }_questionContentArea" rows="3"></textarea>
 											        </div>
 											        <div class="modal-footer">
-											        	<input class="form-check-input" type="checkbox" value="false" id="${vo.itemCode }_isOpen">
+											        	<input class="form-check-input" type="checkbox" id="${vo.itemCode }_isOpen">
 														  <label class="form-check-label" for="${vo.itemCode }_isOpen"> 비밀글 설정 </label>
 											        	<button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal" onclick="questionSubmit('${vo.itemCode }','${id }')">작성</button>
 											        </div>

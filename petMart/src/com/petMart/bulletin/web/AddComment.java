@@ -27,6 +27,8 @@ public class AddComment extends HttpServlet {
 		String content = req.getParameter("content");
 		int bid = Integer.parseInt(req.getParameter("bid"));
 		
+		System.out.println(content);
+		
 		int r = 0;
 		
 		vo.setBid(bid);

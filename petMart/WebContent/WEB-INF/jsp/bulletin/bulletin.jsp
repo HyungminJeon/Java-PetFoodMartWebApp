@@ -45,7 +45,9 @@
 		function newComment(bid, id){
 			var bid = bid;
 			var ctt = document.getElementById('newCommentsArea').value;
+			ctt = ctt.replace(/(\n|\r\n)/g, '<br>');
 			var writer = id;
+			console.log(ctt);
 			$.ajax({
 				url:'addComment',
 				type:'post',
@@ -72,6 +74,7 @@
 			var id = writer;
 			var dth = depth+1;
 			var ctt = document.getElementById(commentId).value;
+			ctt = ctt.replace(/(\n|\r\n)/g, '<br>');
 			var cid = commentId;
 			console.log(bid, gid, id, dth, ctt, cid);
 			$.ajax({
