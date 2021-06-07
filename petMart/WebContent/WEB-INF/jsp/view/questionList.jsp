@@ -29,7 +29,7 @@
 						<td>${vo.content }</td>
 					</c:when>
 					<c:otherwise>
-						<td colspan="2" style="text-align:center;">비밀글은 작성자와 관리자만 볼 수 있습니다</td>
+						<td colspan="2" style="text-align:center;"><i class="bi bi-lock"></i>&nbsp;비밀 글 입니다</td>
 					</c:otherwise>
 				</c:choose>
 			</c:if>
