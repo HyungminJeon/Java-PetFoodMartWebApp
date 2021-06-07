@@ -3,14 +3,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <h5>문의사항</h5>
+<br>
 <c:if test="${empty questionList }">
 	<h4 style="text-align:center;"> 상품이 더 좋아지도록 질문을 남겨주세요 </h4>
 </c:if>
 <c:if test="${not empty questionList }">
 	<table class="table table-striped table-hover">
+	<thead>
 	<tr>
 		<th>작성자</th> <th>제목</th> <th>내용</th> <th>작성일</th> 
 	</tr>
+	</thead>
+	<tbody>
 	<c:forEach items="${questionList }" var="vo" varStatus="status">
 		<tr id="${vo.questionId }">
 			<td>
@@ -40,5 +44,6 @@
 			<td>${vo.regDate }</td>
 		</tr>
 	</c:forEach>
+	</tbody>
 </table>
 </c:if>

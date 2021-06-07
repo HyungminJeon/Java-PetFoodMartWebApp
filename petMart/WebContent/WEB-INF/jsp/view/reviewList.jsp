@@ -3,14 +3,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <h5>상품평</h5>
+<br>
 <c:if test="${empty reviewList }">
 	<h4 style="text-align:center;"> 첫번째로 리뷰를 남겨주세요 </h4>
 </c:if>
 <c:if test="${not empty reviewList }">
 	<table class="table table-striped">
+	<thead>
 	<tr>
 		<th>작성자</th> <th>내용</th> <th>작성일</th> <th></th> 
 	</tr>
+	</thead>
+	<tbody>
+	
 	<c:forEach items="${reviewList }" var="vo">
 		<tr>
 			<td>${vo.writer }</td> <td>${vo.content }</td> <td>${vo.regDate }</td> <td>
@@ -24,5 +29,6 @@
 			</td>
 		</tr>
 	</c:forEach>
+	</tbody>
 </table>
 </c:if>
